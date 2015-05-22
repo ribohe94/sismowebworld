@@ -21,7 +21,7 @@
                     </h1>
                 </section>
             </header>
-            <div id="recolectorInfo">
+<!--            <div id="recolectorInfo">
                 <table>
                     <tr>
                         <th colspan="3">Selección de pedido</th>
@@ -49,21 +49,21 @@
                         <td colspan="2"><input type="button" value="Consultar" onclick="localizar();"></td>
                     </tr>
                 </table>
-            </div>
+            </div>-->
             <div id="contents">
 
                 <section id="navegacion">
-                    <article>
-                        <ul><li><a href="indexVisitantes.jsp"><p>INICIO</p></a></li></ul>
+                    <article class="menu_iz">
+                        <li><a href="index.jsp"><p>INICIO</p></a></li>
                     </article>
-                    <article>
-                        <ul><li><a href="ActualizarInformacion.jsp"><p>ACTUALIZAR INFORMACION</p></a></li></ul>
+                    <article class="menu_iz">
+                        <li><a href="registro.jsp"><p>REGISTRO</p></a></li>
                     </article>
-                    <article>
-                        <ul><li><a href="mapa.jsp"><p>MAPA</p></a></li></ul>
+                    <article class="menu_iz">
+                        <li><a href="login.jsp"><p>INGRESO</p></a></li>
                     </article>
-                    <article>
-                        <ul><li><a href="index.jsp"><p>SALIR</p></a></li></ul>
+                    <article class="menu_iz">
+                        <li><a href="mapa.jsp"><p>MAPA</p></a></li>
                     </article>
                 </section>
 

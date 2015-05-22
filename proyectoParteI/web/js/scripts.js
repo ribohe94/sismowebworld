@@ -276,10 +276,10 @@ function sismos(jsonData) {
 
 function crearMapa() {
     mapholder = document.getElementById('SMapa');
-    mapholder.style.height = '500px';
-    mapholder.style.width = '500px';
+    mapholder.style.height = '360px';
+    mapholder.style.width = '640px';
     var myOptions = {
-        center: centro, zoom: 8,
+        center: centro, zoom: 7,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControl: false,
         navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL}
@@ -290,7 +290,6 @@ function agregarMarca(lat, lon, mag, prof) {
     var pos = new google.maps.LatLng(lat, lon);
     var marker = new google.maps.Marker({position: pos, map: map, title: "Magnitud:" + mag + "\nProfundidad:" + prof});
 }// </editor-fold>
-
 
 // <editor-fold defaultstate="collapsed" desc="Controla Password Strength">
 // =================================================

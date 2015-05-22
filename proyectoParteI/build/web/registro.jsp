@@ -22,16 +22,18 @@
             </header>
 
             <div id="contents">
-
                 <section id="navegacion">
-                    <article>
+                    <article class="menu_iz">
                         <li><a href="index.jsp"><p>INICIO</p></a></li>
                     </article>
-                    <article>
+                    <article class="menu_iz">
                         <li><a href="registro.jsp"><p>REGISTRO</p></a></li>
                     </article>
-                    <article>
+                    <article class="menu_iz">
                         <li><a href="login.jsp"><p>INGRESO</p></a></li>
+                    </article>
+                    <article class="menu_iz">
+                        <li><a href="mapa.jsp"><p>MAPA</p></a></li>
                     </article>
                 </section>
 

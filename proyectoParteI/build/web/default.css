@@ -1,9 +1,13 @@
 /*TYPES*/
+html {
+    min-height: 100%;
+}
 
 body{
     font-family: sans-serif;
     font-size: medium;
     background-color: #009999;
+    min-height: 100%;
 }
 
 header{
@@ -14,11 +18,12 @@ header{
 /*IDs*/
 
 #wrapper{
-
+    min-height: 100%;
 }
 
 #contents{
     position: relative;
+    min-height: 100%;
 }
 
 #encabezado{
@@ -38,7 +43,7 @@ header{
 } 
 
 #navegacion{
-    margin: 80px 20px 20px 20px;
+    margin: 25px 20px 20px 20px;
     border: #000000 solid 1px;
     width: 10%;
     height: 350px;
@@ -69,10 +74,10 @@ header{
 #noticias{
     border: #000000 solid 1px;
     width: 30%;
-    margin: 80px 0px 20px 15px;
+    margin: 105px 30px 20px 15px;
     padding: 8px 20px 8px 20px;
     float: right;
-    margin-right: 0%;
+    margin-right: 40px;
     background-color: #38a1b3;
     height: 300px;
     box-shadow: inset 0px 0px 15px 0px #1e535c;
@@ -95,8 +100,22 @@ header{
     margin: 40px 0px 20px 15px;
 }
 
+#seccionRegistro {
+    width: 19%;
+    min-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 35px;
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-bottom: 35px;
+    padding-top: 35px;
+    box-shadow: 0px 0px 15px 0px #1e535c;
+    background-color: #375A5A;
+}
+
 #mapa{
-    margin: 80px 20px 20px 15px;
+    margin: 25px 20px 20px 15px;
     width: 550px;
     height: 375px;
     float: left;
