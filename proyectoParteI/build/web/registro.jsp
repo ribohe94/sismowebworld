@@ -36,45 +36,64 @@
                 </section>
 
                 <section id="seccionRegistro">
-                    <form id="formularioRegistro" action="ServletControl" method="GET" onsubmit="return verificar();"></form>
-                    <table>
-                        <tr><th colspan="2"><h2>Ingrese los datos Solicitados</h2></th></tr>
-                        <tr>
-                            <td>Nombre:</td> 
-                            <td><input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" form="formularioRegistro" required></td>
-                        </tr>
-                        <tr>
-                            <td>Primer Apellido:</td> 
-                            <td><input id="apellido1" name="apellido1" type="text" placeholder="Apellido 1" form="formularioRegistro" required></td>
-                        </tr>
-                        <tr>
-                            <td>Segundo Apellido:</td> 
-                            <td><input id="apellido2" name="apellido2" type="text" placeholder="Apellido 2" form="formularioRegistro" required></td>
-                        </tr>
-                        <tr>
-                            <td>E-mail:</td> 
-                            <td><input id="email" name="email" type="email" placeholder="xxx@xxx.xxx"form="formularioRegistro" required></td>
-                        </tr>
-                        <tr>
-                            <td>Teléfono:</td> 
-                            <td><input id="telefono" name="telefono" type="tel" placeholder="####-####" form="formularioRegistro" required></td>
-                        </tr>
-                        <tr>
-                            <td>Fecha Nacimiento:</td> 
-                            <td><input id="nacimiento" name="nacimiento" type="date" form="formularioRegistro" required></td>
-                        </tr>
-                        <tr>
-                            <td>Contraseña:</td> 
-                            <td><input id="password" name="password" type="password" placeholder="Ingrese su contraseña" form="formularioRegistro" required></td>
-                        </tr>
-                        <tr>
-                            <td>Confirme Contraseña:</td> 
-                            <td><input id="confirma" type="password" placeholder="Confirme su contraseña" form="formularioRegistro" required></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><input type="submit" value="Aceptar" form="formularioRegistro"></td>
-                        </tr>
-                    </table>
+                    <form id="formularioRegistro" name="userform" action="ServletControl" method="GET" onsubmit="return verificar();">
+                        <table>
+                            <tr><th colspan="2"><h2>Ingrese los datos Solicitados</h2></th></tr>
+                            <tr>
+                                <td>Nombre:</td> 
+                                <td><input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" form="formularioRegistro" required></td>
+                            </tr>
+                            <tr>
+                                <td>Primer Apellido:</td> 
+                                <td><input id="apellido1" name="apellido1" type="text" placeholder="Apellido 1" form="formularioRegistro" required></td>
+                            </tr>
+                            <tr>
+                                <td>Segundo Apellido:</td> 
+                                <td><input id="apellido2" name="apellido2" type="text" placeholder="Apellido 2" form="formularioRegistro" required></td>
+                            </tr>
+                            <tr>
+                                <td>E-mail:</td> 
+                                <td><input id="email" name="email" type="email" placeholder="xxx@xxx.xxx"form="formularioRegistro" required></td>
+                            </tr>
+                            <tr>
+                                <td>Teléfono:</td> 
+                                <td><input id="telefono" name="telefono" type="tel" placeholder="####-####" form="formularioRegistro" required></td>
+                            </tr>
+                            <tr>
+                                <td>Fecha Nacimiento:</td> 
+                                <td><input id="nacimiento" name="nacimiento" type="date" form="formularioRegistro" required></td>
+                            </tr>
+                            <tr>
+                                <td>Contraseña:</td> 
+                                <td><input id="password" name="password" type="password" placeholder="Ingrese su contraseña" 
+                                           form="formularioRegistro" required onkeyup="check_password(document.forms.userform.password.value)">
+                                </td>
+                                <td>
+                                    <!-- pwd_bar is where the colored strength bar appears -->
+                                    <div id="pwd_bar"></div>
+
+                                    <!-- pwd_meter is where the strength word appears, like "weak" -->
+                                    <span id="pwd_meter"></span>
+
+                                    <!-- pwd_log is the section that debug information appears if you set DEBUG=1 above -->
+                                    <span id="pwd_log"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Confirme Contraseña:</td> 
+                                <td><input id="confirma" type="password" name="passwd1" placeholder="Confirme su contraseña" form="formularioRegistro" required></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <input id="pwdStrength" type="hidden" name="pwdStrength" value="0">
+                                    <input type="submit" value="Submit">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><input type="submit" value="Aceptar" form="formularioRegistro"></td>
+                            </tr>
+                        </table>
+                    </form>
                 </section>
 
             </div>

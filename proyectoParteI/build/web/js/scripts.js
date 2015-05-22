@@ -1,3 +1,5 @@
+// <editor-fold defaultstate="collapsed" desc="Validaciones">
+
 function verificar() {
     var bandera = true;
     var Usuario = new Object();
@@ -92,7 +94,16 @@ function verificar() {
         bandera = false;
     }
 
+    if (submit_button(Usuario.password) === false) {
+        alert("La contraseña es demasiado débil");
+        bandera = false;
+    }
+
     return bandera;
+}
+
+function prueba() {
+    alert(document.getElementById("password").value);
 }
 
 function verificar2() {
@@ -113,7 +124,10 @@ function verificar2() {
         alert("La contraseña debe de ser de 6 dígitos numéricos");
         bandera = false;
     }
+
+
     return bandera;
+
 }
 
 
@@ -165,7 +179,9 @@ function verificar2() {
 //}
 
 /*METODOS MAPA*/
+// </editor-fold>
 
+// <editor-fold defaultstate="collapsed" desc="Crea mapa de Google Maps">
 var x = document.getElementById("SMapa");
 function getLocation2() {
     if (navigator.geolocation) {
@@ -273,5 +289,190 @@ function crearMapa() {
 function agregarMarca(lat, lon, mag, prof) {
     var pos = new google.maps.LatLng(lat, lon);
     var marker = new google.maps.Marker({position: pos, map: map, title: "Magnitud:" + mag + "\nProfundidad:" + prof});
+}// </editor-fold>
+
+
+// <editor-fold defaultstate="collapsed" desc="Controla Password Strength">
+// =================================================
+// Calculate password strength and show the strength meter.
+
+function check_password(pwd)
+{
+    var span_log = document.getElementById("pwd_log");		// Where the debug info appears
+    var span_bar = document.getElementById("pwd_bar");		// Where the colored strength bar appears
+    var span_meter = document.getElementById("pwd_meter");	// Where the strength word appears
+
+    var floatEntropy;		// Maximum possible combinations of password characters
+    var intBase = 0;		// Total number of characters in the character sets used in the password
+    var intPwdLen;		// length of the password
+    var strUnique = "";		// Sort of unique characters used, I count no more than 2 of each
+    var intUniqueLen = 0;		// Length of "unique" character string, allowing 2 of each character max
+    var intStrength = 0;	// Calculated password strangth
+    var x;			// General counter
+
+    var barWidth;		// Current width and color of the bar
+    var barColor;
+
+    var DEBUG = 0;    		// Set to 1 for debug output
+
+
+    intPwdLen = pwd.length;	// Length of typed password
+
+    // Entropy space determined by number of possible combinations
+    // of character sets, 26 each for upper an lower case letters,
+    // 10 for digits, 33 for special characters.
+
+    // Lowercase letters - there are 26 possibilities
+
+    if (pwd.match(/[a-z]/))
+    {
+        intBase = intBase + 26;
+    }
+
+    // Uppercase = 26
+
+    if (pwd.match(/[A-Z]/))
+    {
+        intBase = intBase + 26;
+    }
+
+    // Digits = 10
+
+    if (pwd.match(/[0-9]/))
+    {
+        intBase = intBase + 10;
+    }
+
+    // Special characters = 33
+
+    if (pwd.match(/[\W_]/))
+    {
+        intBase = intBase + 33;
+    }
+
+    // Strip out duplicate bytes (allow 2 only) to avoid passwords like aaaaaaaaaaaaaaaaaa or 123123123123
+    // Don't use regex because special characters mess it up
+
+    for (x = 0; x < intPwdLen; x++)
+    {
+        var intMatches = 0;
+        for (var i = x + 1; i < intPwdLen; i++)
+        {
+            if (pwd.charAt(x) == pwd.charAt(i))
+                intMatches = intMatches + 1;
+        }
+        if (intMatches < 2)
+            strUnique = strUnique + pwd.charAt(x);
+    }
+    strUniqueLen = strUnique.length;
+
+    // Entropy for only unique bytes in password
+
+    floatEntropy = Math.pow(intBase, strUniqueLen);
+
+    // Calculate pwd strength as the exponent of entropy
+
+    x = floatEntropy;
+    while (x >= 10) {
+        intStrength = intStrength + 1;
+        x = x / 10;
+    }
+
+    // Scale from 0 - 50, max strength is 50
+
+    if (intStrength > 50)
+        intStrength = 50;
+
+    // Convert strength into words and colors.
+    // If you want to evaluate strength differently
+    // you can change this section.
+
+    if (intStrength == 0)
+        strDesc = "";
+    else if (intStrength <= 7)
+    {
+        strDesc = "Weak";
+        barColor = "Red";
+    }
+    else if (intStrength <= 14)
+    {
+        strDesc = "Fair";
+        barColor = "Orange";
+    }
+    else if (intStrength <= 20)
+    {
+        strDesc = "Good";
+        barColor = "yellow";
+    }
+    else if (intStrength <= 30)
+    {
+        strDesc = "Strong";
+        barColor = "GreenYellow";
+    }
+    else if (intStrength > 30)
+    {
+        strDesc = "Very strong";
+        barColor = "Green";
+    }
+
+    // Output debug/information text
+
+    if (DEBUG)
+        span_log.innerHTML = "<br>Length is " + intPwdLen + ". "
+                + "<br>Unique string is " + strUnique + " with length " + strUniqueLen + "."
+                + "<br>Base is " + intBase + ". " + "<br>Entropy is "
+                + floatEntropy.toExponential() + ". "
+                + "<br>Password strength is " + intStrength + "."
+                + "<br>Password is " + pwd + "."
+                ;
+
+    // Show strength meter bar
+
+    barWidth = intStrength * 4;     // Scale up to 200px width
+
+    span_bar.innerHTML = "";
+    span_bar.style.width = barWidth + "px";
+    span_bar.style.height = "8px";
+    span_bar.style.border = "1px solid gray";
+    span_bar.style.backgroundColor = barColor;
+    span_bar.style.margin = "0px";
+    span_bar.style.padding = "0px";
+
+    // Show the strength word
+
+    span_meter.innerHTML = strDesc + "&nbsp;";
+
+    // Return password strengh
+
+    if (intPwdLen > 0)
+        return(intStrength);
 }
 
+// =================================================
+// Processing the "Submit" button.
+// Change this section to suit your application.
+
+function submit_button(pwd)
+{
+    var intStrength = check_password(pwd);
+    var pwdStrength = document.getElementById("pwdStrength");
+
+    // Require a "good" password
+
+    if (intStrength <= 14)
+    {
+        return(false);
+    }
+
+    // Update hidden password strength field.
+    // This form field can be used by your server-side
+    // form processor, but don't count on it being true
+    // because javascript can be altered on the client.
+    // Always re-test input data on your server-side application,
+    // don't trust javascript to do input validation in
+    // internet web applications.
+
+    pwdStrength.value = intStrength;
+    return(true);
+}
+// </editor-fold>

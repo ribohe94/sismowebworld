@@ -1,16 +1,20 @@
+/*TYPES*/
+
 body{
     font-family: sans-serif;
     font-size: medium;
     background-color: #009999;
 }
 
-#wrapper{
-    
-}
-
 header{
     border: #000000 solid 1px;
     background-image: url('images/header_3.jpg');
+}
+
+/*IDs*/
+
+#wrapper{
+
 }
 
 #contents{
@@ -62,18 +66,13 @@ header{
     float: left;
 }
 
-.a{
-    width: 60%;
-    margin-left: 95px;
-}
-
 #noticias{
     border: #000000 solid 1px;
     width: 30%;
     margin: 80px 0px 20px 15px;
     padding: 8px 20px 8px 20px;
     float: right;
-    margin-right: 10%;
+    margin-right: 0%;
     background-color: #38a1b3;
     height: 300px;
     box-shadow: inset 0px 0px 15px 0px #1e535c;
@@ -103,10 +102,17 @@ header{
     float: left;
 }
 
+/*CLASSES*/
 
+.a{
+    width: 60%;
+    margin-left: 95px;
+}
 
-
-
+.menu_iz {
+    position: relative;
+    border-collapse: collapse;
+}
 
 
 /* CSS - Cascading Style Sheet */

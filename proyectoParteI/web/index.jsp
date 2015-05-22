@@ -25,14 +25,17 @@
             <div id="contents">
 
                 <section id="navegacion">
-                    <article>
+                    <article class="menu_iz">
                         <li><a href="index.jsp"><p>INICIO</p></a></li>
                     </article>
-                    <article>
+                    <article class="menu_iz">
                         <li><a href="registro.jsp"><p>REGISTRO</p></a></li>
                     </article>
-                    <article>
+                    <article class="menu_iz">
                         <li><a href="login.jsp"><p>INGRESO</p></a></li>
+                    </article>
+                    <article class="menu_iz">
+                        <li><a href="mapa.jsp"><p>MAPA</p></a></li>
                     </article>
                 </section>
 
@@ -74,23 +77,22 @@
                                     Quisque nec massa quis arcu fringilla maximus.</p>
                             </div>
                         </article>
+                        <section id="noticias">
+                            <h2>Noticias</h2>
+                            <span>
+                                Praesent varius massa eget ex tempus, vitae posuere enim tristique.
+                                Nullam at ante lacinia, cursus nunc ut, dictum felis.
+                                Donec tempus sed sem ac auctor. Integer a nisl diam. Cras sem mauris,
+                                commodo non nulla eu, placerat mattis mi. Sed imperdiet fringilla rutrum.
+                                Aliquam rutrum leo id felis placerat sollicitudin. Cum sociis natoque
+                                penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                                Sed ornare libero bibendum mi lacinia vulputate. In pretium vulputate
+                                lorem, a mattis nisl porta eget. Aliquam finibus ipsum nunc,
+                                nec imperdiet magna pellentesque quis. Aliquam venenatis quam ac
+                                nunc auctor maximus. Fusce posuere velit sit amet convallis egestas.
+                            </span>
+                        </section>
                     </div>
-                </section>
-
-                <section id="noticias">
-                    <h2>Noticias</h2>
-                    <span>
-                        Praesent varius massa eget ex tempus, vitae posuere enim tristique.
-                        Nullam at ante lacinia, cursus nunc ut, dictum felis.
-                        Donec tempus sed sem ac auctor. Integer a nisl diam. Cras sem mauris,
-                        commodo non nulla eu, placerat mattis mi. Sed imperdiet fringilla rutrum.
-                        Aliquam rutrum leo id felis placerat sollicitudin. Cum sociis natoque
-                        penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                        Sed ornare libero bibendum mi lacinia vulputate. In pretium vulputate
-                        lorem, a mattis nisl porta eget. Aliquam finibus ipsum nunc,
-                        nec imperdiet magna pellentesque quis. Aliquam venenatis quam ac
-                        nunc auctor maximus. Fusce posuere velit sit amet convallis egestas.
-                    </span>
                 </section>
             </div>
             <footer></footer>
