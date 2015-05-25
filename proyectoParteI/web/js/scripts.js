@@ -475,3 +475,53 @@ function submit_button(pwd)
     return(true);
 }
 // </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="Script para slide de noticias">
+/* This script and many more are available free online at
+The JavaScript Source!! http://javascript.internet.com
+Created by: Jay M. Rumsey, OD | http://www.nova.edu/~rumsey 
+
+Modified from: http://javascript.internet.com/image-effects/simple-image-gallery.html
+*/
+
+var ImgPtr = 0;
+var BaseDirectory = 'http://javascript.internet.com/image-effects/';
+
+//ImgArray = [
+////  filename,     Caption 1   Caption 2
+//  ['pix1-sm.gif','Mountain', 'The beautiful mountains'],
+//  ['pix2-sm.gif','Lake','The crystal clear lake'],
+//  ['pix3-sm.gif','Tree','The lonesome, barren tree'],
+//  ['Apex.jpg','House',
+//'This was a much needed renovation. The Apex (built in the 1930s) was constructed from lathe and plaster. Over the years it had finaly started to give in to the weather. Without replacement the customer was looking at damage within the loft area and subsequent damage to the ceilings.']
+//// NOTE: No comma after last entry of array
+//]
+
+ImgArray = [
+//  filename,     Caption 1   Caption 2
+  ['<%out.print(md.getNoticias().getNoticiaPosicion(0).getTitulo() + "<br>");%>',
+      '<%out.print(md.getNoticias().getNoticiaPosicion(0).getFecha() + "<br>");%>', 
+      '<%out.print(md.getNoticias().getNoticiaPosicion(0).getContenido() + "<br>");%>']
+// NOTE: No comma after last entry of array
+];
+
+//function ShowSlide(slide_num) {
+//  document.getElementById('mypic').src = BaseDirectory+ImgArray[slide_num][0];
+//  document.getElementById('mypic').alt = ImgArray[slide_num][1];
+//  document.getElementById('Caption1').innerHTML = ImgArray[slide_num][1];
+//  document.getElementById('Caption2').innerHTML = ImgArray[slide_num][2];
+//}
+
+function ShowSlide() {
+  document.getElementById('Caption1').innerHTML = ImgArray[0][0];
+  document.getElementById('mypic').innerHTML = ImgArray[0][1];
+  document.getElementById('Caption2').innerHTML = ImgArray[0][2];
+}
+
+function slideshow(dir) {
+  ImgPtr = ImgPtr + dir;
+  if (ImgPtr < 0) {ImgPtr = ImgArray.length-1;}
+  ImgPtr = ImgPtr % ImgArray.length;
+  ShowSlide(ImgPtr);
+}
+// </editor-fold>

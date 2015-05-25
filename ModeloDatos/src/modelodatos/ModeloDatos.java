@@ -1,7 +1,11 @@
 package modelodatos;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelodatos.DAO.ContenedorNoticias;
 import modelodatos.DAO.Ingreso;
+import modelodatos.DAO.Noticia;
 import modelodatos.DAO.Usuario;
 import modelodatos.DAO.Validacion;
 
@@ -11,6 +15,16 @@ public class ModeloDatos {
         usuario = new Usuario();
         ingreso = new Ingreso();
         validar = new Validacion();
+        noticias = new ContenedorNoticias();
+        try {
+            cargarNoticias();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public ContenedorNoticias getNoticias() {
+        return noticias;
     }
 
     public static ModeloDatos obtenerInstancia() {
@@ -26,6 +40,14 @@ public class ModeloDatos {
         return ingreso.insertar(correo, pais);
     }
 
+    public boolean insertarNoticia(String titulo, String fecha, String contenido) throws SQLException {
+        return noticias.addNoticia(new Noticia(titulo, contenido, fecha, ""));
+    }
+
+    public boolean cargarNoticias() throws SQLException {
+        return noticias.cargarNoticias();
+    }
+
     public boolean existeUsuario(String email, String password) throws SQLException {
         boolean existe = validar.existeUsuario(email, password);
         if(existe == true){
@@ -37,6 +59,7 @@ public class ModeloDatos {
     private Usuario usuario;
     private Ingreso ingreso;
     private Validacion validar;
+    private ContenedorNoticias noticias;
     private static ModeloDatos modelo;
     
 

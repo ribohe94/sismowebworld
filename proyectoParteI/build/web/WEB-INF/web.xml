@@ -8,6 +8,10 @@
         <servlet-name>ServletControlB</servlet-name>
         <servlet-class>servicios.ServletControlB</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletControlC</servlet-name>
+        <servlet-class>servicios.ServletControlC</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletControl</servlet-name>
         <url-pattern>/ServletControl</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>ServletControlB</servlet-name>
         <url-pattern>/ServletControlB</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletControlC</servlet-name>
+        <url-pattern>/ServletControlC/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="modelodatos.ModeloDatos" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,7 +24,11 @@
             </header>
 
             <div id="contents">
-
+                <section>
+                    <form action="ServletControlC" method="GET" id="formularioNoticia">
+                        <input type="submit" form="formularioNoticia"/>
+                    </form>
+                </section>
                 <section id="navegacion">
                     <article class="menu_iz">
                         <li><a href="index.jsp"><p>INICIO</p></a></li>
@@ -77,23 +82,33 @@
                                     Quisque nec massa quis arcu fringilla maximus.</p>
                             </div>
                         </article>
-                        <section id="noticias">
-                            <h2>Noticias</h2>
-                            <span>
-                                Praesent varius massa eget ex tempus, vitae posuere enim tristique.
-                                Nullam at ante lacinia, cursus nunc ut, dictum felis.
-                                Donec tempus sed sem ac auctor. Integer a nisl diam. Cras sem mauris,
-                                commodo non nulla eu, placerat mattis mi. Sed imperdiet fringilla rutrum.
-                                Aliquam rutrum leo id felis placerat sollicitudin. Cum sociis natoque
-                                penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                Sed ornare libero bibendum mi lacinia vulputate. In pretium vulputate
-                                lorem, a mattis nisl porta eget. Aliquam finibus ipsum nunc,
-                                nec imperdiet magna pellentesque quis. Aliquam venenatis quam ac
-                                nunc auctor maximus. Fusce posuere velit sit amet convallis egestas.
-                            </span>
-                        </section>
                     </div>
                 </section>
+                <section id="noticias">
+                    <h2>Noticias</h2>
+                    <span>
+                        <%
+                            ModeloDatos md = ModeloDatos.obtenerInstancia();
+                            out.println(md.getNoticias().toString());
+                        %>
+<!--                        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                var x = 5; 
+                                // When the HTML DOM is ready loading, then execute the following function...
+                                $('#next').click(function () {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+                                    $.get('ServletControlC', String(x), function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                        $('#somediv').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                    });
+                                });
+                            });
+                        </script>
+                        <button id="previous">previous</button>
+                        <button id="next">next</button>
+                        <div id="somediv"></div>-->
+                    </span>
+                </section>
+
             </div>
             <footer></footer>
         </div>
