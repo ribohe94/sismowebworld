@@ -26,15 +26,23 @@ public class ContenedorNoticias extends DAO {
         }
     }
 
+    public ArrayList<Noticia> getListaNoticias() {
+        return listaNoticias;
+    }
+
+    public int getCantidad() {
+        return listaNoticias.size();
+    }
+
     public ContenedorNoticias() {
         super();
         this.listaNoticias = new ArrayList<>();
     }
 
-    public Noticia getNoticiaPosicion (int i) {
+    public Noticia getNoticiaPosicion(int i) {
         return listaNoticias.get(i);
     }
-    
+
     public boolean addNoticia(Noticia n) throws SQLException {
         connect();
         if (n != null) {
@@ -63,21 +71,20 @@ public class ContenedorNoticias extends DAO {
         Statement stmtSQL = con.createStatement();
         ResultSet rs = stmtSQL.executeQuery(SQL);
 
-        
-            while (rs.next()) {
-                flag = true;
-                id = String.valueOf(rs.getInt("id"));
-                System.out.println(rs.getInt("id"));
-                titulo = rs.getString("titulo");
-                System.out.println(rs.getString("titulo"));
-                fecha = rs.getString("fecha");
-                System.out.println(rs.getString("fecha"));
-                contenido = rs.getString("contenido");
-                System.out.println(rs.getString("contenido"));
-                listaNoticias.add(new Noticia(titulo, contenido, fecha, id));
-            }
+        while (rs.next()) {
+            flag = true;
+            id = String.valueOf(rs.getInt("id"));
+//            System.out.println(rs.getInt("id"));
+            titulo = rs.getString("titulo");
+//            System.out.println(rs.getString("titulo"));
+            fecha = rs.getString("fecha");
+//            System.out.println(rs.getString("fecha"));
+            contenido = rs.getString("contenido");
+//            System.out.println(rs.getString("contenido"));
+            listaNoticias.add(new Noticia(titulo, contenido, fecha, id));
+        }
 //            System.out.println(toString());
-            return flag;
+        return flag;
     }
 
     @Override

@@ -12,6 +12,30 @@ public class Ingreso extends DAO {
         super();
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getHoraIngreso() {
+        return horaIngreso;
+    }
+
+    public void setHoraIngreso(String horaIngreso) {
+        this.horaIngreso = horaIngreso;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
     public boolean insertar(String correo, String pais) throws SQLException {
         connect();
         stmt = conn.prepareStatement("INSERT INTO Ingreso(usuario,horaIngreso,pais)"
@@ -27,6 +51,10 @@ public class Ingreso extends DAO {
         stmt.executeUpdate();
         disconnect();
         return true;
-
     }
+    
+    /*Atributos*/
+    private String usuario;
+    private String horaIngreso;
+    private String pais;
 }

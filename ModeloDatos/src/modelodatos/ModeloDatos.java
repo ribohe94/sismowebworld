@@ -21,6 +21,15 @@ public class ModeloDatos {
         } catch (SQLException ex) {
             Logger.getLogger(ModeloDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        usuarioRegistrado = null;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public ContenedorNoticias getNoticias() {
@@ -56,10 +65,15 @@ public class ModeloDatos {
         return existe;
     }
 
+    public Usuario getUsuario(String email) throws SQLException {
+        return usuario.getUsuario(email);
+    }
+    
     private Usuario usuario;
     private Ingreso ingreso;
     private Validacion validar;
     private ContenedorNoticias noticias;
+    private Usuario usuarioRegistrado;
     private static ModeloDatos modelo;
     
 
