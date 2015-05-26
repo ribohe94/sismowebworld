@@ -20,6 +20,7 @@ public class ServletControlC extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
     }
+    int n = 0;
     ModeloDatos datos = ModeloDatos.obtenerInstancia();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -34,10 +35,43 @@ public class ServletControlC extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println(request.getParameter("x"));
-        String text = "<html>" + datos.getNoticias().getNoticiaPosicion(0).getTitulo() + "";
-        text += datos.getNoticias().getNoticiaPosicion(0).getFecha()+ "</br>";
-        text += datos.getNoticias().getNoticiaPosicion(0).getContenido()+ "<br>" + "</html>";
+        String text = "";
+        try {
+            int val = Integer.valueOf(request.getParameter("id"));
+            int val2 = Integer.valueOf(request.getParameter("id2"));
+            System.out.println("PARAMETRO ID1----->  " + request.getParameter("id"));
+            System.out.println("PARAMETRO ID2----->  " + request.getParameter("id2"));
+            text = "HOLA!!";
+
+            if ((val2 == 1) && (val == 0)) {
+                n++;
+            } else {
+                if ((val2 == 0) && (val == 0)) {
+                    n--;
+                }
+            }
+            if (n == datos.getNoticias().getCantidad()) {
+                n = 0;
+            } else {
+                if (n < 0) {
+                    n = datos.getNoticias().getCantidad() - 1;
+                }
+            }
+            if (val == 0) {
+                text = datos.getNoticias().getNoticiaPosicion(n).getTitulo();
+                System.out.println("Obtiene titulo en pos: " + n);
+            }
+            if (val == 1) {
+                text += datos.getNoticias().getNoticiaPosicion(n).getFecha();
+                System.out.println("Obtiene fecha en pos: " + n);
+            }
+            if (val == 2) {
+                text += datos.getNoticias().getNoticiaPosicion(n).getContenido();
+                System.out.println("Obtiene cont en pos: " + n);
+            }
+        } catch (Exception e) {
+
+        }
 
         response.setContentType("text/html");  // Set content type of the response so that jQuery knows what it can expect.
         response.setCharacterEncoding("UTF-8"); // You want world domination, huh?

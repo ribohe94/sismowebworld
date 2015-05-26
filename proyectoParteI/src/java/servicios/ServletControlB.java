@@ -8,22 +8,29 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelodatos.DAO.Usuario;
 import modelodatos.ModeloDatos;
 
 public class ServletControlB extends HttpServlet {
 
+    ModeloDatos datos = ModeloDatos.obtenerInstancia();
+    Usuario usuarioConectado = new Usuario();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ModeloDatos datos = ModeloDatos.obtenerInstancia();
         boolean band = true;
         String mail = request.getParameter("emailLogin");
         String pass = request.getParameter("passwordLogin");
 
         try {
             if (datos.existeUsuario(mail, pass)) {
-                System.out.println("Successfull Login");
+                datos.setUsuario(datos.getUsuario(mail));
+                usuarioConectado = datos.getUsuario(mail);
+                System.out.println("Successfull Login ---------------------------------->" + datos.getUsuario(mail).toString());
+
             } else {
+                datos.setUsuario(null);
                 System.out.println("Errores al procesar Login");
                 band = false;
             }
@@ -51,7 +58,35 @@ public class ServletControlB extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String text = "";
+        if (request.getParameter("id") != null) {
+            String val = request.getParameter("id");
+            try {
+                if ("0".equals(val)) {
+                    text = usuarioConectado.getNombre();
+                }
+                if ("1".equals(val)) {
+                    text = usuarioConectado.getApellido1();
+                }
+                if ("2".equals(val)) {
+                    text = usuarioConectado.getApellido2();
+                }
+                if ("3".equals(val)) {
+                    text = usuarioConectado.getCorreo();
+                }
+                if ("4".equals(val)) {
+                    text = usuarioConectado.getNacimiento();
+                }
+
+                response.setContentType("text/html");  // Set content type of the response so that jQuery knows what it can expect.
+                response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+                response.getWriter().write(text);
+            } catch (Exception e) {
+
+            }
+        } else {
+            processRequest(request, response);
+        }
     }
 
     /**

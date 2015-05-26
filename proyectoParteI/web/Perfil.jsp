@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="modelodatos.ModeloDatos" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,45 +22,64 @@
                     </h1>
                 </section>
             </header>
+            <section id="navegacion">
+                <article>
+                    <li><a href="indexVisitantes.jsp"><p>INICIO</p></a></li>
+                </article>
+                <article>
+                    <li><a href="Perfil.jsp"><p>Perfil</p></a></li>
+                </article>
+                <article>
+                    <li><a href="mapaVisitantes.jsp"><p>MAPA</p></a></li>
+                </article>
+                <article>
+                    <li><a href="index.jsp"><p>SALIR</p></a></li>
+                </article>
+            </section>
 
-            <div id="contents">
-                <section id="navegacion">
-                    <article class="menu_iz">
-                        <li><a href="index.jsp"><p>INICIO</p></a></li>
-                    </article>
-                    <article class="menu_iz">
-                        <li><a href="registro.jsp"><p>REGISTRO</p></a></li>
-                    </article>
-                    <article class="menu_iz">
-                        <li><a href="login.jsp"><p>INGRESO</p></a></li>
-                    </article>
-                    <article class="menu_iz">
-                        <li><a href="mapa.jsp"><p>MAPA</p></a></li>
-                    </article>
-                </section>
-            </div>
-            
             <table id="tabla_info">
+                <section>
+                    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            // When the HTML DOM is ready loading, then execute the following function...
+                            // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+                            $.get('ServletControlB', {id: 0}, function (responseText) {
+                                $('#divnombre').text(responseText);
+                                $.get('ServletControlB', {id: 1}, function (responseText) {
+                                    $('#divapellido1').text(responseText);
+                                    $.get('ServletControlB', {id: 2}, function (responseText) {
+                                        $('#divapellido2').text(responseText);
+                                        $.get('ServletControlB', {id: 3}, function (responseText) {
+                                            $('#divemail').text(responseText);
+                                            $.get('ServletControlB', {id: 4}, function (responseText) {
+                                                $('#divnacimiento').text(responseText);
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+
+                        });
+                    </script>
+                </section>
                 <tr>
-                    <td>Nombre:</td>
+                    <td>Nombre: </td><td id="divnombre"></td>
                 </tr>
                 <tr>
-                    <td>Primer apellido:</td>
+                    <td>Primer apellido: </td><td id="divapellido1"></td>
                 </tr>
                 <tr>
-                    <td>Segundo apellido</td>
+                    <td>Segundo apellido: </td><td id="divapellido2"></td>
                 </tr>
                 <tr>
-                    <td>Email:</td>
+                    <td>Email: </td><td id="divemail"></td>
                 </tr>
                 <tr>
-                    <td>Telefono</td>
-                </tr>
-                <tr>
-                    <td>Fecha de nacimiento: </td>
+                    <td>Fecha de nacimiento: </td><td id="divnacimiento"></td>
                 </tr>
             </table>
-            
+
             <footer></footer>
         </div>
     </body>

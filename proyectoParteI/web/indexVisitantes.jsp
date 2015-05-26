@@ -29,7 +29,10 @@
                         <li><a href="ActualizarInformacion.jsp"><p>ACTUALIZAR INFORMACION</p></a></li>
                     </article>
                     <article>
-                        <li><a href="mapa.jsp"><p>MAPA</p></a></li>
+                        <li><a href="Perfil.jsp"><p>Perfil</p></a></li>
+                    </article>
+                    <article>
+                        <li><a href="mapaVisitantes.jsp"><p>MAPA</p></a></li>
                     </article>
                     <article>
                         <li><a href="index.jsp"><p>SALIR</p></a></li>
