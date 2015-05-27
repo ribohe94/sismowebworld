@@ -56,12 +56,16 @@ public class ContenedorNoticias extends DAO {
             stmt.setString(4, String.valueOf(listaNoticias.size()));
             stmt.executeUpdate();
             disconnect();
+            cargarNoticias();
             return true;
         }
         return false;
     }
 
     public boolean cargarNoticias() throws SQLException {
+        for (int i = 0; i < listaNoticias.size(); i++) {
+            listaNoticias.remove(i);
+        }
         connect();
         String titulo, fecha, contenido, id;
         boolean flag = false;

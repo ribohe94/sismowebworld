@@ -36,8 +36,46 @@
                     <li><a href="index.jsp"><p>SALIR</p></a></li>
                 </article>
             </section>
-
             <table id="tabla_info">
+                <section id="noticias">
+                    <h2>Noticias</h2>
+                    <span>
+                        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                var x = 0;
+                                // When the HTML DOM is ready loading, then execute the following function...
+                                $('#next').click(function () {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+                                    $.get('ServletControlC', {id: 0, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                        $('#tituloNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                        $.get('ServletControlC', {id: 1, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                            $('#fechaNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                            $.get('ServletControlC', {id: 2, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                                $('#contNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                            });
+                                        });
+                                    });
+                                });
+                                $('#previous').click(function () {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+                                    $.get('ServletControlC', {id: 0, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                        $('#tituloNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                        $.get('ServletControlC', {id: 1, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                            $('#fechaNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                            $.get('ServletControlC', {id: 2, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                                $('#contNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        </script>
+                        <div id="tituloNoticia"></div>
+                        <div id="fechaNoticia"></div>
+                        <div id="contNoticia"></div>
+                        <button id="previous">previous</button>
+                        <button id="next">next</button>
+                    </span>
+                </section>
                 <section>
                     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
                     <script>
@@ -127,93 +165,100 @@
                                 });
                                 document.getElementById("inputNac").removedNode();
                             });
+                            $.get('ServletControlB', {id: "admin"}, function (responseText01) {
+                                admin = responseText01;
+                            });
 
-                            //Tabla de Usuarios
-                            $('#buscarUsuario').click(function () {
-                                $.get('ServletControlB', {id: 14, email: document.getElementById("usuarioemail").value}, function (responseText01) {
-                                    $('#divnombreuser').text(responseText01);
-                                    $.get('ServletControlB', {id: 15, email: document.getElementById("usuarioemail").value}, function (responseText02) {
-                                        $('#divapellido1user').text(responseText02);
-                                        $.get('ServletControlB', {id: 16, email: document.getElementById("usuarioemail").value}, function (responseText03) {
-                                            $('#divapellido2user').text(responseText03);
-                                            $.get('ServletControlB', {id: 17, email: document.getElementById("usuarioemail").value}, function (responseText04) {
-                                                $('#divemailuser').text(responseText04);
-                                                $.get('ServletControlB', {id: 18, email: document.getElementById("usuarioemail").value}, function (responseText05) {
-                                                    $('#divnacimientouser').text(responseText05);
-                                                    $.get('ServletControlB', {id: 19, email: document.getElementById("usuarioemail").value}, function (responseText06) {
-                                                        $('#divnadminuser').text(responseText06);
+                            if (admin === "1") {
+
+                                //Tabla de Usuarios
+                                $('#buscarUsuario').click(function () {
+                                    $.get('ServletControlB', {id: 14, email: document.getElementById("usuarioemail").value}, function (responseText01) {
+                                        $('#divnombreuser').text(responseText01);
+                                        $.get('ServletControlB', {id: 15, email: document.getElementById("usuarioemail").value}, function (responseText02) {
+                                            $('#divapellido1user').text(responseText02);
+                                            $.get('ServletControlB', {id: 16, email: document.getElementById("usuarioemail").value}, function (responseText03) {
+                                                $('#divapellido2user').text(responseText03);
+                                                $.get('ServletControlB', {id: 17, email: document.getElementById("usuarioemail").value}, function (responseText04) {
+                                                    $('#divemailuser').text(responseText04);
+                                                    $.get('ServletControlB', {id: 18, email: document.getElementById("usuarioemail").value}, function (responseText05) {
+                                                        $('#divnacimientouser').text(responseText05);
+                                                        $.get('ServletControlB', {id: 19, email: document.getElementById("usuarioemail").value}, function (responseText06) {
+                                                            $('#divnadminuser').text(responseText06);
+                                                        });
                                                     });
                                                 });
                                             });
                                         });
                                     });
                                 });
-                            });
 
-                            //Modificamos que hace el boton modificar cuando se presiona
-                            $('#btnModNomuser').click(function () {
-                                $('#divnombreuser').text("");
-                                $('#divnombreuser').append("<input type=\"text\" id=\"inputNomuser\"></input>");
-                                document.getElementById("btnSavNomuser").disabled = false;
-                            });
-                            $('#btnModApe1user').click(function () {
-                                $('#divapellido1user').text("");
-                                $('#divapellido1user').append("<input type=\"text\" id=\"inputApe1user\"></input>");
-                                document.getElementById("btnSavApe1user").disabled = false;
-                            });
-                            $('#btnModApe2user').click(function () {
-                                $('#divapellido2user').text("");
-                                $('#divapellido2user').append("<input type=\"text\" id=\"inputApe2user\"></input>");
-                                document.getElementById("btnSavApe2user").disabled = false;
-                            });
-                            $('#btnModEmailuser').click(function () {
-                                $('#divemailuser').text("");
-                                $('#divemailuser').append("<input type=\"text\" id=\"inputEmailuser\"></input>");
-                                document.getElementById("btnSavEmailuser").disabled = false;
-                            });
-                            $('#btnModNacuser').click(function () {
-                                $('#divnacimientouser').text("");
-                                $('#divnacimientouser').append("<input type=\"date\" id=\"inputNacuser\"></input>");
-                                document.getElementById("btnSavNacuser").disabled = false;
-                            });
+                                //Modificamos que hace el boton modificar cuando se presiona
+                                $('#btnModNomuser').click(function () {
+                                    $('#divnombreuser').text("");
+                                    $('#divnombreuser').append("<input type=\"text\" id=\"inputNomuser\"></input>");
+                                    document.getElementById("btnSavNomuser").disabled = false;
+                                });
+                                $('#btnModApe1user').click(function () {
+                                    $('#divapellido1user').text("");
+                                    $('#divapellido1user').append("<input type=\"text\" id=\"inputApe1user\"></input>");
+                                    document.getElementById("btnSavApe1user").disabled = false;
+                                });
+                                $('#btnModApe2user').click(function () {
+                                    $('#divapellido2user').text("");
+                                    $('#divapellido2user').append("<input type=\"text\" id=\"inputApe2user\"></input>");
+                                    document.getElementById("btnSavApe2user").disabled = false;
+                                });
+                                $('#btnModEmailuser').click(function () {
+                                    $('#divemailuser').text("");
+                                    $('#divemailuser').append("<input type=\"text\" id=\"inputEmailuser\"></input>");
+                                    document.getElementById("btnSavEmailuser").disabled = false;
+                                });
+                                $('#btnModNacuser').click(function () {
+                                    $('#divnacimientouser').text("");
+                                    $('#divnacimientouser').append("<input type=\"date\" id=\"inputNacuser\"></input>");
+                                    document.getElementById("btnSavNacuser").disabled = false;
+                                });
 
-                            //Modificamos que hace el boton guardar cuando se presiona
-                            $('#btnSavNomuser').click(function () {
-                                $.get('ServletControlB', {id: 20, name: document.getElementById("inputNomuser").value, email: document.getElementById("usuarioemail").value}, function (responseText) {
-                                    $('#divnombreuser').text(responseText);
-                                    document.getElementById("btnSavNomuser").disabled = true;
+                                //Modificamos que hace el boton guardar cuando se presiona
+                                $('#btnSavNomuser').click(function () {
+                                    $.get('ServletControlB', {id: 20, name: document.getElementById("inputNomuser").value, email: document.getElementById("usuarioemail").value}, function (responseText) {
+                                        $('#divnombreuser').text(responseText);
+                                        document.getElementById("btnSavNomuser").disabled = true;
+                                    });
+                                    document.getElementById("inputNomuser").removedNode();
                                 });
-                                document.getElementById("inputNomuser").removedNode();
-                            });
-                            $('#btnSavApe1user').click(function () {
-                                $.get('ServletControlB', {id: 21, ape1: document.getElementById("inputApe1user").value, email: document.getElementById("usuarioemail").value}, function (responseText) {
-                                    $('#divapellido1user').text(responseText);
-                                    document.getElementById("btnSavApe1user").disabled = true;
+                                $('#btnSavApe1user').click(function () {
+                                    $.get('ServletControlB', {id: 21, ape1: document.getElementById("inputApe1user").value, email: document.getElementById("usuarioemail").value}, function (responseText) {
+                                        $('#divapellido1user').text(responseText);
+                                        document.getElementById("btnSavApe1user").disabled = true;
+                                    });
+                                    document.getElementById("inputApe1user").removedNode();
                                 });
-                                document.getElementById("inputApe1user").removedNode();
-                            });
-                            $('#btnSavApe2user').click(function () {
-                                $.get('ServletControlB', {id: 22, ape2: document.getElementById("inputApe2user").value, email: document.getElementById("usuarioemail").value}, function (responseText) {
-                                    $('#divapellido2user').text(responseText);
-                                    document.getElementById("btnSavApe2user").disabled = true;
+                                $('#btnSavApe2user').click(function () {
+                                    $.get('ServletControlB', {id: 22, ape2: document.getElementById("inputApe2user").value, email: document.getElementById("usuarioemail").value}, function (responseText) {
+                                        $('#divapellido2user').text(responseText);
+                                        document.getElementById("btnSavApe2user").disabled = true;
+                                    });
+                                    document.getElementById("inputApe2user").removedNode();
                                 });
-                                document.getElementById("inputApe2user").removedNode();
-                            });
-                            $('#btnSavEmailuser').click(function () {
-                                $.get('ServletControlB', {id: 23, email: document.getElementById("inputEmailuser").value, email01: document.getElementById("usuarioemail").value}, function (responseText) {
-                                    $('#divemailuser').text(responseText);
-                                    document.getElementById("btnSavEmailuser").disabled = true;
+                                $('#btnSavEmailuser').click(function () {
+                                    $.get('ServletControlB', {id: 23, email: document.getElementById("inputEmailuser").value, email01: document.getElementById("usuarioemail").value}, function (responseText) {
+                                        $('#divemailuser').text(responseText);
+                                        document.getElementById("btnSavEmailuser").disabled = true;
+                                    });
+                                    document.getElementById("inputEmailuser").removedNode();
                                 });
-                                document.getElementById("inputEmailuser").removedNode();
-                            });
-                            $('#btnSavNacuser').click(function () {
-                                $.get('ServletControlB', {id: 24, nac: document.getElementById("inputNacuser").value, email: document.getElementById("usuarioemail").value}, function (responseText) {
-                                    $('#divnacimientouser').text(responseText);
-                                    document.getElementById("btnSavNacuser").disabled = true;
+                                $('#btnSavNacuser').click(function () {
+                                    $.get('ServletControlB', {id: 24, nac: document.getElementById("inputNacuser").value, email: document.getElementById("usuarioemail").value}, function (responseText) {
+                                        $('#divnacimientouser').text(responseText);
+                                        document.getElementById("btnSavNacuser").disabled = true;
+                                    });
+                                    document.getElementById("inputNacuser").removedNode();
                                 });
-                                document.getElementById("inputNacuser").removedNode();
-                            });
-
+                            } else {
+                                document.getElementById("tablaUsuarios").innerHTML = "";
+                            }
                         });
                     </script>
                 </section>
@@ -260,10 +305,10 @@
                 <tr>
                     <td>Es administrador: </td><td id="divnadminuser"></td>
                 </tr>
+                <tr>
+                    <td id="divNoticias"><a href="ActualizarInformacion.jsp">Agregar Noticias</a></td>
+                </tr>
             </table>
-            <!--            <table id="tablaCorreos">
-            
-                        </table>-->
             <footer></footer>
         </div>
     </body>

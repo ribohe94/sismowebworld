@@ -39,9 +39,6 @@
                     <article class="menu_iz">
                         <li><a href="login.jsp"><p>INGRESO</p></a></li>
                     </article>
-                    <article class="menu_iz">
-                        <li><a href="mapa.jsp"><p>MAPA</p></a></li>
-                    </article>
                 </section>
 
                 <section id="info">

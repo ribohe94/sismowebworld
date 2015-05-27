@@ -21,35 +21,35 @@
                     </h1>
                 </section>
             </header>
-<!--            <div id="recolectorInfo">
-                <table>
-                    <tr>
-                        <th colspan="3">Selección de pedido</th>
-                    </tr>
-                    <tr>
-                        <td>Fecha:</td>
-                        <%
-                            java.util.Calendar ahora = java.util.Calendar.getInstance();
-                            int anyo = ahora.get(java.util.Calendar.YEAR);
-                            int mes = ahora.get(java.util.Calendar.MONTH) + 1;
-                            int dia = ahora.get(java.util.Calendar.DAY_OF_MONTH);
-                            String sAhora = "";
-                            if (mes < 10) {
-                                sAhora = anyo + "-0" + mes;
-                            } else {
-                                sAhora = anyo + "-" + mes;
-                            }
-                            if (dia < 10) {
-                                sAhora += "-0" + dia;
-                            } else {
-                                sAhora += "-" + dia;
-                            }
-                        %>
-                        <td><input id="fechaBase" type="date" value="<%=sAhora%>" ></td>
-                        <td colspan="2"><input type="button" value="Consultar" onclick="localizar();"></td>
-                    </tr>
-                </table>
-            </div>-->
+            <!--            <div id="recolectorInfo">
+                            <table>
+                                <tr>
+                                    <th colspan="3">Selección de pedido</th>
+                                </tr>
+                                <tr>
+                                    <td>Fecha:</td>
+            <%
+                java.util.Calendar ahora = java.util.Calendar.getInstance();
+                int anyo = ahora.get(java.util.Calendar.YEAR);
+                int mes = ahora.get(java.util.Calendar.MONTH) + 1;
+                int dia = ahora.get(java.util.Calendar.DAY_OF_MONTH);
+                String sAhora = "";
+                if (mes < 10) {
+                    sAhora = anyo + "-0" + mes;
+                } else {
+                    sAhora = anyo + "-" + mes;
+                }
+                if (dia < 10) {
+                    sAhora += "-0" + dia;
+                } else {
+                    sAhora += "-" + dia;
+                }
+            %>
+            <td><input id="fechaBase" type="date" value="<%=sAhora%>" ></td>
+            <td colspan="2"><input type="button" value="Consultar" onclick="localizar();"></td>
+        </tr>
+    </table>
+</div>-->
             <div id="contents">
 
                 <section id="navegacion">
@@ -83,16 +83,40 @@
                 <section id="noticias">
                     <h2>Noticias</h2>
                     <span>
-                        Praesent varius massa eget ex tempus, vitae posuere enim tristique.
-                        Nullam at ante lacinia, cursus nunc ut, dictum felis.
-                        Donec tempus sed sem ac auctor. Integer a nisl diam. Cras sem mauris,
-                        commodo non nulla eu, placerat mattis mi. Sed imperdiet fringilla rutrum.
-                        Aliquam rutrum leo id felis placerat sollicitudin. Cum sociis natoque
-                        penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                        Sed ornare libero bibendum mi lacinia vulputate. In pretium vulputate
-                        lorem, a mattis nisl porta eget. Aliquam finibus ipsum nunc,
-                        nec imperdiet magna pellentesque quis. Aliquam venenatis quam ac
-                        nunc auctor maximus. Fusce posuere velit sit amet convallis egestas.
+                        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+                        <script>
+                                $(document).ready(function () {
+                                    var x = 0;
+                                    // When the HTML DOM is ready loading, then execute the following function...
+                                    $('#next').click(function () {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+                                        $.get('ServletControlC', {id: 0, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                            $('#tituloNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                            $.get('ServletControlC', {id: 1, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                                $('#fechaNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                                $.get('ServletControlC', {id: 2, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                                    $('#contNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                                });
+                                            });
+                                        });
+                                    });
+                                    $('#previous').click(function () {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
+                                        $.get('ServletControlC', {id: 0, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                            $('#tituloNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                            $.get('ServletControlC', {id: 1, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                                $('#fechaNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                                $.get('ServletControlC', {id: 2, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
+                                                    $('#contNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                        </script>
+                        <div id="tituloNoticia"></div>
+                        <div id="fechaNoticia"></div>
+                        <div id="contNoticia"></div>
+                        <button id="previous">previous</button>
+                        <button id="next">next</button>
                     </span>
                 </section>
             </div>

@@ -181,13 +181,195 @@ function verificar2() {
 /*METODOS MAPA*/
 // </editor-fold>
 
+// <editor-fold defaultstate="collapsed" desc="Validaciones Perfil">
+
+function verificarPerfil() {
+    var bandera = true;
+    var Usuario = new Object();
+    Usuario.nombre = document.getElementById("inputNom").value;
+    var nombre = Usuario.nombre.split(" ");
+    Usuario.apellido1 = document.getElementById("inputApe1").value;
+    var apellido1 = Usuario.apellido1.split(" ");
+    Usuario.apellido2 = document.getElementById("inputApe2").value;
+    var apellido2 = Usuario.apellido2.split(" ");
+    Usuario.email = document.getElementById("inputEmail").value;
+    Usuario.telefono = document.getElementById("telefono").value;
+    Usuario.nacimiento = document.getElementById("inputNac").value;
+    fechaActual = new Date();
+    fechaNacimiento = new Date(Date.parse(Usuario.nacimiento));
+
+
+
+    /*Validaci[on de Nombre*/
+    if (nombre.length === 1) {
+        for (i = 0; i < nombre.length; i++) {
+            if (/[0-9]/.test(nombre[i])) {
+                bandera = false;
+                alert("El nombre no puede contener números");
+            }
+        }
+    } else {
+        bandera = false;
+        alert("El nombre debe contener solo 1 palabra");
+    }
+    /*Validacion Apellido 1*/
+    if (apellido1.length === 1) {
+        for (i = 0; i < apellido1.length; i++) {
+            if (/[0-9]/.test(apellido1[i])) {
+                bandera = false;
+                alert("El Primer apellido no puede contener números");
+            }
+        }
+    } else {
+        bandera = false;
+        alert("El Primer apellido debe contener solo 1 palabra");
+    }
+
+
+    /*Validacion Apellido 2*/
+    if (apellido2.length === 1) {
+        for (i = 0; i < apellido2.length; i++) {
+            if (/[0-9]/.test(apellido2[i])) {
+                bandera = false;
+                alert("El Apellido 2 no puede contener números");
+            }
+        }
+    } else {
+        bandera = false;
+        alert("El Apellido 2 debe contener solo 1 palabra");
+    }
+
+    /*Validacion de Correo*/
+    if (/^[a-z-A-Z-0-9\-\_\.]+@+[a-z]+.+[a-z]$/.test(Usuario.email)) {
+
+
+    } else {
+        bandera = false;
+        alert("Error al digitar el Email.\n\n Ejemplo:  xxxx@xxx.com");
+    }
+
+    /*Validacion de Telefono*/
+    if (/^[0-9{4}]+-+[0-9{4}]/.test(Usuario.telefono)) {
+
+    } else {
+        alert("Error al digitar el número.\nEjemplo: 7777-7777");
+        bandera = false;
+    }
+
+
+    /*Validacion de la Fecha*/
+    if (fechaActual <= fechaNacimiento) {
+        alert("La fecha de nacimiento no puede se mayor a la fecha actual");
+        bandera = false;
+    }
+
+    /*Validacion del password*/
+    if (/^[0-9{6}]$/.test(Usuario.password)) {
+        alert("La contraseña debe de ser de 6 dígitos numéricos");
+        bandera = false;
+    }
+
+    /*Validacion de la Coincidencia*/
+    if (Usuario.confirma !== Usuario.password) {
+        alert("Las contraseñas no coinciden ");
+        bandera = false;
+    }
+
+    if (submit_button(Usuario.password) === false) {
+        alert("La contraseña es demasiado débil");
+        bandera = false;
+    }
+
+    return bandera;
+}
+
+function prueba() {
+    alert(document.getElementById("password").value);
+}
+
+function verificar2() {
+    var bandera = true;
+    var Usuario = new Object();
+
+    Usuario.email = document.getElementById("emailLogin").value;
+    Usuario.password = document.getElementById("passwordLogin").value;
+
+    /*Validacion de Correo*/
+    if (/^[a-z-A-Z-0-9\-\_\.]+@+[a-z]+.+[a-z]$/.test(Usuario.email)) {
+    } else {
+        bandera = false;
+        alert("Error al digitar el Email.\n\n Ejemplo:  xxxx@xxx.com");
+    }
+    /*Validacion del password*/
+    if (/^[0-9{6}]$/.test(Usuario.password)) {
+        alert("La contraseña debe de ser de 6 dígitos numéricos");
+        bandera = false;
+    }
+
+
+    return bandera;
+
+}
+
+
+//function localizar(){
+//    navigator.geolocation.getCurrentPosition(mapa, error);
+//}
+//
+//function mapa(pos){
+//    var contenedor = document.getElementById("mapa");
+//    var latitud = pos.coords.latitude;
+//    var longitud = pos.coords.longitude;
+//    
+//    var centro = new google.maps.LatLng(latitud,longitud);
+//    
+//    var propiedades = {
+//        center: centro,
+//        draggable: true,
+//        KeyBoardShortcuts: true,
+//        mapTypeControl : true,
+//        mapTypeId: google.maps.MapTypeId.ROADMAP,
+//        navigationControl: true,
+//        scrollWheel: true,
+//        streetViewControl: true,
+//        zoom: 6
+//    };
+//    
+//    var map = new google.maps.Map(contenedor, propiedades);
+//    
+//    var marcador = new google.maps.Marker({
+//        draggable : true,
+//        icon: 'images/1432108393_678111-map-marker-24.png',
+//        position: centro,
+//        map: map,
+//        title: "holaaaaaaaaa"
+//    });
+//    
+//}
+//
+//function error(errorC){
+//    if(errorC.code === 0){
+//        alert("Desconocido");
+//    }else if(errorC === 1){
+//        alert("No me dejaste ubicarte");
+//    }else if(errorC === 2){
+//        alert("Posicion no Disponible");
+//    }else if(errorC === 3){
+//        alert("Tiempo Agotado");
+//    }
+//}
+
+/*METODOS MAPA*/
+// </editor-fold>
+
 // <editor-fold defaultstate="collapsed" desc="Crea mapa de Google Maps">
 var x = document.getElementById("SMapa");
+var b = true;
 function getLocation2() {
+
     if (navigator.geolocation) {
         fecha = (String)(document.getElementById("fromDate").value);
         navigator.geolocation.getCurrentPosition(showPosition, showError);
-
     } else {
         x.innerHTML = "Su navegador no soporta geo localizacipon.";
     }
@@ -221,8 +403,6 @@ function showError(error) {
 function consultaPais(latitud, longitud) {
     var countryCode = 'http://api.geonames.org/countryCodeJSON?formatted=true&lat=' + latitud + '&lng=' + longitud + '&username=wilsame.6&style=full&callback=Code';
     tagger(countryCode);
-
-
 }
 function Code(jsonData) {
     var codigo = JSON.stringify(jsonData["countryCode"]);
@@ -251,18 +431,21 @@ function Bordes(jsonData) {
 
 }
 function consultaSismo(n, s, e, o) {
-
+    fecha = (String)(document.getElementById("fromDate").value);
     var earthquakes = 'http://api.geonames.org/earthquakesJSON?formatted=true&north=' + n + '&south=' + s + '&east=' + e + '&west=' + o + '&username=wilsame.6&style=full&callback=sismos&date=' + fecha;
     tagger(earthquakes);
 }
 
 function sismos(jsonData) {
     var tam = JSON.stringify(jsonData.earthquakes.length);
-    crearMapa();
+
     if (tam <= 0) {
         alert("No hay Sismos registrados en esa fecha");
     } else {
-
+        var lat = JSON.stringify(jsonData.earthquakes[1]["lat"]);
+        var lon = JSON.stringify(jsonData.earthquakes[1]["lng"]);
+        centro = new google.maps.LatLng(lat, lon);
+        crearMapa();
         for (i = 0; i < tam; i++) {
             var lat = JSON.stringify(jsonData.earthquakes[i]["lat"]);
             var lon = JSON.stringify(jsonData.earthquakes[i]["lng"]);
@@ -275,20 +458,57 @@ function sismos(jsonData) {
 }
 
 function crearMapa() {
-    mapholder = document.getElementById('SMapa');
-    mapholder.style.height = '360px';
-    mapholder.style.width = '640px';
+    mapholder = document.getElementById('SMapa')
+    mapholder.style.height = '500px';
+    mapholder.style.width = '500px';
     var myOptions = {
-        center: centro, zoom: 7,
+        center: centro,
+        zoom: 6,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControl: false,
         navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL}
     }
     map = new google.maps.Map(document.getElementById("SMapa"), myOptions);
 }
+
+
 function agregarMarca(lat, lon, mag, prof) {
     var pos = new google.maps.LatLng(lat, lon);
     var marker = new google.maps.Marker({position: pos, map: map, title: "Magnitud:" + mag + "\nProfundidad:" + prof});
+}
+
+
+function cargarpaises() {
+    if (b === true) {
+        getLocation2();
+        var paises = 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=it&username=wilsame.6&style=full&callback=mostrarPaises';
+        tagger(paises);
+    } else {
+        b = false;
+        var paises = 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=it&username=wilsame.6&style=full&callback=mostrarPaises';
+        tagger(paises);
+    }
+
+}
+
+function mostrarPaises(jsonData) {
+    var select = document.getElementById("SPais");
+    for (var i = 0; i < jsonData.geonames.length; i++) {
+        var option = document.createElement("option");
+        option.value = jsonData.geonames[i]["countryName"];
+        option.text = jsonData.geonames[i]["countryName"];
+        option.codigo = jsonData.geonames[i]["countryCode"];
+        select.add(option);
+    }
+}
+
+function Consulta() {
+    var selected = document.getElementById("SPais").selectedIndex;
+    if ((selected) && (selected !== -1)) {
+        var codigo = document.getElementById("SPais").options[selected].codigo;
+        consultaBorde(codigo);
+    }
+
 }// </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Controla Password Strength">

@@ -39,35 +39,49 @@ public class ServletControlC extends HttpServlet {
         try {
             int val = Integer.valueOf(request.getParameter("id"));
             int val2 = Integer.valueOf(request.getParameter("id2"));
-            System.out.println("PARAMETRO ID1----->  " + request.getParameter("id"));
-            System.out.println("PARAMETRO ID2----->  " + request.getParameter("id2"));
-            text = "HOLA!!";
 
-            if ((val2 == 1) && (val == 0)) {
-                n++;
-            } else {
-                if ((val2 == 0) && (val == 0)) {
-                    n--;
+            if (datos.getNoticias().getCantidad() > 0) {
+
+                if ((val2 == 1) && (val == 0)) {
+                    n++;
+                } else {
+                    if ((val2 == 0) && (val == 0)) {
+                        n--;
+                    }
+                }
+                if (n == datos.getNoticias().getCantidad()) {
+                    n = 0;
+                } else {
+                    if (n < 0) {
+                        n = datos.getNoticias().getCantidad() - 1;
+                    }
+                }
+                if (val == 0) {
+                    text = datos.getNoticias().getNoticiaPosicion(n).getTitulo();
+                    System.out.println("Obtiene titulo en pos: " + n);
+                }
+                if (val == 1) {
+                    text += datos.getNoticias().getNoticiaPosicion(n).getFecha();
+                    System.out.println("Obtiene fecha en pos: " + n);
+                }
+                if (val == 2) {
+                    text += datos.getNoticias().getNoticiaPosicion(n).getContenido();
+                    System.out.println("Obtiene cont en pos: " + n);
                 }
             }
-            if (n == datos.getNoticias().getCantidad()) {
-                n = 0;
-            } else {
-                if (n < 0) {
-                    n = datos.getNoticias().getCantidad() - 1;
-                }
-            }
-            if (val == 0) {
-                text = datos.getNoticias().getNoticiaPosicion(n).getTitulo();
-                System.out.println("Obtiene titulo en pos: " + n);
-            }
-            if (val == 1) {
-                text += datos.getNoticias().getNoticiaPosicion(n).getFecha();
-                System.out.println("Obtiene fecha en pos: " + n);
-            }
-            if (val == 2) {
-                text += datos.getNoticias().getNoticiaPosicion(n).getContenido();
-                System.out.println("Obtiene cont en pos: " + n);
+
+        } catch (Exception e) {
+
+        }
+
+        try {
+            int val = Integer.valueOf(request.getParameter("id"));
+            if (val == 3) {
+                String titulo = request.getParameter("valort");
+                String fecha = request.getParameter("valorf");
+                String contenido = request.getParameter("valorc");
+                datos.insertarNoticia(titulo, fecha, contenido);
+                System.out.println("NOTICIAS AGREGADA");
             }
         } catch (Exception e) {
 
