@@ -121,6 +121,10 @@ header{
     float: left;
 }
 
+#tabla_info {
+    margin-top: 20px;
+}
+
 /*CLASSES*/
 
 .a{

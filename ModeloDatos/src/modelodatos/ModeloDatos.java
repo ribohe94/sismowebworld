@@ -1,6 +1,7 @@
 package modelodatos;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelodatos.DAO.ContenedorNoticias;
@@ -41,10 +42,46 @@ public class ModeloDatos {
     }
 
     public boolean insertarUsuario(String correo, String nombre, String apellido1,
-            String apellido2, String password, String rutaFoto, String nacimiento) throws SQLException {
-        return usuario.insertar(correo, nombre, apellido1, apellido2, password, rutaFoto, nacimiento, ingreso);
+            String apellido2, String password, String rutaFoto, String nacimiento, String isAdmin) throws SQLException {
+        return usuario.insertar(correo, nombre, apellido1, apellido2, password, rutaFoto, nacimiento, isAdmin, ingreso);
     }
 
+    public boolean modificarUsuario(Usuario u) throws SQLException {
+        return usuario.modificaUsuario(u);
+    }
+    
+    public ArrayList<Usuario> getListaUsuarios() throws SQLException {
+        return usuario.getListaUsuario();
+    }
+    
+    public boolean modificarNom(Usuario u) throws SQLException {
+        return usuario.modificaUsuarioNom(u);
+    }
+    
+    public boolean modificarEmail(Usuario u, String email) throws SQLException {
+        return usuario.modificaUsuarioEmail(u, email);
+    }
+    
+    public boolean modificarApe1(Usuario u) throws SQLException {
+        return usuario.modificaUsuarioApe1(u);
+    }
+    
+    public boolean modificarApe2(Usuario u) throws SQLException {
+        return usuario.modificaUsuarioApe2(u);
+    }
+    
+    public boolean modificarPass(Usuario u) throws SQLException {
+        return usuario.modificaUsuarioPass(u);
+    }
+    
+    public boolean modificarNac(Usuario u) throws SQLException {
+        return usuario.modificaUsuarioNac(u);
+    }
+    
+    public boolean modificarIsAdmin(Usuario u) throws SQLException {
+        return usuario.modificaUsuarioIsAdmin(u);
+    }
+    
     public boolean insertarIngreso(String correo, String pais) throws SQLException {
         return ingreso.insertar(correo, pais);
     }

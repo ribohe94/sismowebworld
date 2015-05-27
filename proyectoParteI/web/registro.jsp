@@ -66,6 +66,12 @@
                                 <td><input id="nacimiento" name="nacimiento" type="date" form="formularioRegistro" required></td>
                             </tr>
                             <tr>
+                                <td>Es administrador:</td> 
+                                <td><input id="radiosi" name="isAdmin" value="isAdminY" type="radio" form="formularioRegistro" required>Si
+                                    <input id="radiono" name="isAdmin" value="isAdminN" type="radio" form="formularioRegistro" required checked="true">No</td>
+
+                            </tr>
+                            <tr>
                                 <td>Contraseña:</td> 
                                 <td><input id="password" name="password" type="password" placeholder="Ingrese su contraseña" 
                                            form="formularioRegistro" required onkeyup="check_password(document.forms.userform.password.value)">

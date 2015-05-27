@@ -59,6 +59,7 @@ public class ServletControlB extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String text = "";
+        Usuario u = new Usuario();
         if (request.getParameter("id") != null) {
             String val = request.getParameter("id");
             try {
@@ -77,7 +78,135 @@ public class ServletControlB extends HttpServlet {
                 if ("4".equals(val)) {
                     text = usuarioConectado.getNacimiento();
                 }
-
+                if ("5".equals(val)) {
+                    usuarioConectado.setNombre(request.getParameter("name"));
+                    datos.modificarNom(usuarioConectado);
+                    text = usuarioConectado.getNombre();
+                }
+                if ("6".equals(val)) {
+                    usuarioConectado.setApellido1(request.getParameter("ape1"));
+                    datos.modificarApe1(usuarioConectado);
+                    text = usuarioConectado.getApellido1();
+                }
+                if ("7".equals(val)) {
+                    usuarioConectado.setApellido2(request.getParameter("ape2"));
+                    datos.modificarApe2(usuarioConectado);
+                    text = usuarioConectado.getApellido2();
+                }
+                if ("8".equals(val)) {
+                    String correo = request.getParameter("email");
+                    datos.modificarEmail(usuarioConectado, correo);
+                    text = usuarioConectado.getCorreo();
+                }
+                if ("9".equals(val)) {
+                    usuarioConectado.setNacimiento(request.getParameter("nac"));
+                    datos.modificarNac(usuarioConectado);
+                    text = usuarioConectado.getNombre();
+                }
+                if ("10".equals(val)) {
+                    if (usuarioConectado.getAdmin() == 1) {
+                        text = "Si";
+                    } else {
+                        if (usuarioConectado.getAdmin() == 0) {
+                            text = "No";
+                        }
+                    }
+                }
+                if ("11".equals(val)) {
+                    text = String.valueOf(datos.getListaUsuarios().size());
+                }
+                if ("12".equals(val)) {
+                    text = datos.getListaUsuarios().get(Integer.parseInt(request.getParameter("pos"))).getNombre();
+                }
+                if ("13".equals(val)) {
+                    System.out.println(request.getParameter("pos"));
+                    text = datos.getListaUsuarios().get(Integer.parseInt(request.getParameter("pos"))).getCorreo();
+                }
+                if ("14".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    if (u == null) {
+                        text = "Usuario no registrado";
+                    } else {
+                        text = u.getNombre();
+                    }
+                }
+                if ("15".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    if (u == null) {
+                        text = "Usuario no registrado";
+                    } else {
+                        text = u.getApellido1();
+                    }
+                }
+                if ("16".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    if (u == null) {
+                        text = "Usuario no registrado";
+                    } else {
+                        text = u.getApellido2();
+                    }
+                }
+                if ("17".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    if (u == null) {
+                        text = "Usuario no registrado";
+                    } else {
+                        text = u.getCorreo();
+                    }
+                }
+                if ("18".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    if (u == null) {
+                        text = "Usuario no registrado";
+                    } else {
+                        text = u.getNacimiento();
+                    }
+                }
+                if ("19".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    if (u == null) {
+                        text = "Usuario no registrado";
+                    } else {
+                        if (u.getAdmin() == 0) {
+                            text = "No";
+                        } else {
+                            if (u.getAdmin() == 1) {
+                                text = "Si";
+                            }
+                        }
+                    }
+                }
+                if ("20".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    u.setNombre(request.getParameter("name"));
+                    datos.modificarNom(u);
+                    text = u.getNombre();
+                }
+                if ("21".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    u.setApellido1(request.getParameter("ape1"));
+                    datos.modificarApe1(u);
+                    text = u.getApellido1();
+                }
+                if ("22".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    u.setApellido2(request.getParameter("ape2"));
+                    datos.modificarApe2(u);
+                    text = u.getApellido2();
+                }
+                if ("23".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    datos.modificarEmail(u, request.getParameter("email01"));
+                    text = u.getCorreo();
+                }
+                if ("24".equals(val)) {
+                    u = datos.getUsuario(request.getParameter("email"));
+                    u.setNacimiento(request.getParameter("nac"));
+                    datos.modificarNac(u);
+                    text = u.getNacimiento();
+                }
+                
+                
                 response.setContentType("text/html");  // Set content type of the response so that jQuery knows what it can expect.
                 response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
                 response.getWriter().write(text);

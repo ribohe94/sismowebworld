@@ -22,10 +22,21 @@ public class ServletControl extends HttpServlet {
         String password = request.getParameter("password");
         String foto = "foto";
         String fecha = request.getParameter("nacimiento");
+        String[] adminArray = request.getParameterValues("isAdmin");
+        String admin = "0";
+        for (String admin1 : adminArray) {
+            if ("isAdminN".equals(adminArray[0])) {
+                admin = "0";
+            }
+            if ("isAdminY".equals(adminArray[0])) {
+                admin = "1";
+            }
+        }
+        
         boolean band = true;
         
         try {
-            if (datos.insertarUsuario(email, nombre, apellido1, apellido2, password, foto, fecha)) {
+            if (datos.insertarUsuario(email, nombre, apellido1, apellido2, password, foto, fecha, admin)) {
                 System.out.println("Ingreso Válido");
             } else {
                 System.out.println("Errores al procesar Ingreso");

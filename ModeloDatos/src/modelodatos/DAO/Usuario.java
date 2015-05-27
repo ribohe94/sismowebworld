@@ -2,6 +2,7 @@ package modelodatos.DAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Usuario extends DAO {
 
@@ -100,7 +101,7 @@ public class Usuario extends DAO {
     }
 
     public boolean insertar(String correo, String nombre, String apellido1,
-            String apellido2, String password, String rutaFoto, String nacimiento, Ingreso ingre) throws SQLException {
+            String apellido2, String password, String rutaFoto, String nacimiento, String isAdmin, Ingreso ingre) throws SQLException {
         connect();
         if (!existe(correo).equals("")) {
             disconnect();
@@ -115,7 +116,7 @@ public class Usuario extends DAO {
             stmt.setString(5, password);
             stmt.setString(6, "default path");
             stmt.setString(7, nacimiento);
-            stmt.setByte(8, admin);
+            stmt.setByte(8, Byte.parseByte(isAdmin));
             stmt.executeUpdate();
             ingre.insertar(correo, "Costa Rica");
             disconnect();
@@ -133,8 +134,8 @@ public class Usuario extends DAO {
         }
         return correoaux;
     }
-    
-    public Usuario getUsuario(String email) throws SQLException{
+
+    public Usuario getUsuario(String email) throws SQLException {
         connect();
         String correoaux = "", nombreaux = "", apellido1aux = "", apellido2aux = "", pass = "", rutaFotoaux = "", nacimientoaux = "";
         String usuarioIngreso = "", horaIngreso = "", pais = "";
@@ -157,6 +158,7 @@ public class Usuario extends DAO {
             rutaFotoaux = res.getString("rutaFoto");
             nacimientoaux = res.getString("nacimiento");
             isAdmin = res.getByte("isAdministrador");
+            System.out.println("Estado ADMIN:   " + isAdmin);
         }
         //Selecciono Ingreso
 //        stmt = conn.prepareStatement("SELECT usuario FROM Ingreso where usuario = ?");
@@ -171,7 +173,148 @@ public class Usuario extends DAO {
 //        i.setUsuario(usuarioIngreso);
 //        i.setHoraIngreso(horaIngreso);
 //        i.setPais(pais);
+        disconnect();
         return new Usuario(isAdmin, new Ingreso(), correoaux, nombreaux, apellido1aux, apellido2aux, pass, rutaFotoaux, nacimientoaux);
+    }
+
+    public ArrayList<Usuario> getListaUsuario() throws SQLException {
+        connect();
+        ArrayList<Usuario> lista = new ArrayList<>();
+        String correoaux = "", nombreaux = "", apellido1aux = "", apellido2aux = "", pass = "", rutaFotoaux = "", nacimientoaux = "";
+        String usuarioIngreso = "", horaIngreso = "", pais = "";
+        byte isAdmin = 0;
+        //Selecciono Usuario
+        stmt = conn.prepareStatement("SELECT * FROM Usuario where isAdministrador = '0'");
+        ResultSet res = stmt.executeQuery();
+        while (res.next()) {
+            correoaux = res.getString("email");
+            System.out.println(correoaux);
+            nombreaux = res.getString("nombre");
+            System.out.println(nombreaux);
+            apellido1aux = res.getString("apellido1");
+            System.out.println(apellido1aux);
+            apellido2aux = res.getString("apellido2");
+            System.out.println(apellido2aux);
+            pass = res.getString("password");
+            System.out.println(pass);
+            rutaFotoaux = res.getString("rutaFoto");
+            nacimientoaux = res.getString("nacimiento");
+            isAdmin = res.getByte("isAdministrador");
+            System.out.println("Estado ADMIN:   " + isAdmin);
+            lista.add(new Usuario(isAdmin, new Ingreso(), correoaux, nombreaux, apellido1aux, apellido2aux, pass, rutaFotoaux, nacimientoaux));
+        }
+        //Selecciono Ingreso
+//        stmt = conn.prepareStatement("SELECT usuario FROM Ingreso where usuario = ?");
+//        stmt.setString(1, usuario);
+//        res = stmt.executeQuery();
+//        while(res.next()) {
+//            usuarioIngreso = res.getString("usuario");
+//            horaIngreso = res.getString("horaIngreso");
+//            pais = res.getString("pais");
+//        }
+//        Ingreso i = new Ingreso();
+//        i.setUsuario(usuarioIngreso);
+//        i.setHoraIngreso(horaIngreso);
+//        i.setPais(pais);
+        disconnect();
+        for (int i = 0; i < lista.size(); i++) {
+            System.out.println(lista.get(i).getNombre());
+        }
+        return lista;
+    }
+
+    public boolean modificaUsuario(Usuario u) throws SQLException {
+        connect();
+        stmt = conn.prepareStatement("UPDATE Usuario SET nombre = ?, apellido1 = ?, apellido2 = ?, password = ?, nacimiento = ? WHERE email=?;");
+        stmt.setString(1, u.getNombre());
+        stmt.setString(2, u.getApellido1());
+        stmt.setString(3, u.getApellido2());
+        stmt.setString(4, u.getPassword());
+        stmt.setString(5, u.getNacimiento());
+        stmt.setString(6, u.getCorreo());
+        stmt.executeUpdate();
+        stmt.close();
+        disconnect();
+        return true;
+    }
+
+    public boolean modificaUsuarioNom(Usuario u) throws SQLException {
+        connect();
+        stmt = conn.prepareStatement("UPDATE Usuario SET nombre = ? WHERE email=?;");
+        stmt.setString(1, u.getNombre());
+        stmt.setString(2, u.getCorreo());
+        stmt.executeUpdate();
+        stmt.close();
+        disconnect();
+        return true;
+    }
+
+
+    public boolean modificaUsuarioApe1(Usuario u) throws SQLException {
+        connect();
+        stmt = conn.prepareStatement("UPDATE Usuario SET apellido1 = ? WHERE email=?;");
+        stmt.setString(1, u.getApellido1());
+        stmt.setString(2, u.getCorreo());
+        stmt.executeUpdate();
+        stmt.close();
+        disconnect();
+        return true;
+    }
+
+    public boolean modificaUsuarioApe2(Usuario u) throws SQLException {
+        connect();
+        stmt = conn.prepareStatement("UPDATE Usuario SET apellido2 = ? WHERE email=?;");
+        stmt.setString(1, u.getApellido2());
+        stmt.setString(2, u.getCorreo());
+        stmt.executeUpdate();
+        stmt.close();
+        disconnect();
+        return true;
+    }
+
+    public boolean modificaUsuarioPass(Usuario u) throws SQLException {
+        connect();
+        stmt = conn.prepareStatement("UPDATE Usuario SET password = ? WHERE email=?;");
+        stmt.setString(1, u.getPassword());
+        stmt.setString(2, u.getCorreo());
+        stmt.executeUpdate();
+        stmt.close();
+        disconnect();
+        return true;
+    }
+
+    public boolean modificaUsuarioNac(Usuario u) throws SQLException {
+        connect();
+        stmt = conn.prepareStatement("UPDATE Usuario SET nacimiento = ? WHERE email=?;");
+        stmt.setString(1, u.getNacimiento());
+        stmt.setString(2, u.getCorreo());
+        stmt.executeUpdate();
+        stmt.close();
+        disconnect();
+        return true;
+    }
+    
+    public boolean modificaUsuarioEmail(Usuario u, String email) throws SQLException {
+        connect();
+        stmt = conn.prepareStatement("UPDATE Usuario SET email = ? WHERE email = ?;");
+        stmt.setString(1, email);
+        u.setCorreo(email);
+        stmt.setString(2, u.getCorreo());
+        stmt.executeUpdate();
+        stmt.close();
+        disconnect();
+        return true;
+    }
+    
+    public boolean modificaUsuarioIsAdmin(Usuario u) throws SQLException {
+        connect();
+        stmt = conn.prepareStatement("UPDATE Usuario SET isAdministrador = ? WHERE email=?;");
+        stmt.setString(1, String.valueOf(u.getAdmin()));
+        stmt.setString(2, u.getCorreo());
+        stmt.executeUpdate();
+        stmt.close();
+        disconnect();
+        return true;
     }
     
     private byte admin;
