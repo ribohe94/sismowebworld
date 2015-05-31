@@ -745,3 +745,7 @@ function slideshow(dir) {
   ShowSlide(ImgPtr);
 }
 // </editor-fold>
+
+// <editor-fold defaultstate="collapsed" desc="Script para GoogleCharts">
+
+// </editor-fold>

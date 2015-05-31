@@ -134,9 +134,6 @@
                                     <input type="submit" value="Submit">
                                 </td>
                             </tr>
-                            <tr>
-                                <td colspan="2"><input type="submit" value="Aceptar" form="formularioRegistro"></td>
-                            </tr>
                         </table>
                     </form>
                 </section>

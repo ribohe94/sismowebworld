@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Usuario extends DAO {
 
-    public Usuario(byte admin, Ingreso primerIngreso, String correo, String nombre, String apellido1, String apellido2, String password, String rutaFoto, String nacimiento) {
+    public Usuario(byte admin, Ingreso ingreso, String correo, String nombre, String apellido1, String apellido2, String password, String rutaFoto, String nacimiento) {
         this.admin = admin;
-        this.primerIngreso = primerIngreso;
+        this.ingreso = ingreso;
         this.correo = correo;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -21,7 +21,7 @@ public class Usuario extends DAO {
     public Usuario(String url, String user, String password) {
         super(url, user, password);
         admin = 0;
-        primerIngreso = null;
+        ingreso = null;
     }
 
     public Usuario() {
@@ -36,12 +36,12 @@ public class Usuario extends DAO {
         this.admin = admin;
     }
 
-    public Ingreso getPrimerIngreso() {
-        return primerIngreso;
+    public Ingreso getIngreso() {
+        return ingreso;
     }
 
-    public void setPrimerIngreso(Ingreso primerIngreso) {
-        this.primerIngreso = primerIngreso;
+    public void setIngreso(Ingreso ingreso) {
+        this.ingreso = ingreso;
     }
 
     public String getCorreo() {
@@ -161,20 +161,20 @@ public class Usuario extends DAO {
             System.out.println("Estado ADMIN:   " + isAdmin);
         }
         //Selecciono Ingreso
-//        stmt = conn.prepareStatement("SELECT usuario FROM Ingreso where usuario = ?");
-//        stmt.setString(1, usuario);
-//        res = stmt.executeQuery();
-//        while(res.next()) {
-//            usuarioIngreso = res.getString("usuario");
-//            horaIngreso = res.getString("horaIngreso");
-//            pais = res.getString("pais");
-//        }
-//        Ingreso i = new Ingreso();
-//        i.setUsuario(usuarioIngreso);
-//        i.setHoraIngreso(horaIngreso);
-//        i.setPais(pais);
+        stmt = conn.prepareStatement("SELECT usuario FROM Ingreso where usuario = ?");
+        stmt.setString(1, email);
+        res = stmt.executeQuery();
+        while(res.next()) {
+            usuarioIngreso = res.getString("usuario");
+            horaIngreso = res.getString("horaIngreso");
+            pais = res.getString("pais");
+        }
+        Ingreso i = new Ingreso();
+        i.setUsuario(correoaux);
+        i.setHoraIngreso(horaIngreso);
+        i.setPais(pais);
         disconnect();
-        return new Usuario(isAdmin, new Ingreso(), correoaux, nombreaux, apellido1aux, apellido2aux, pass, rutaFotoaux, nacimientoaux);
+        return new Usuario(isAdmin, i, correoaux, nombreaux, apellido1aux, apellido2aux, pass, rutaFotoaux, nacimientoaux);
     }
 
     public ArrayList<Usuario> getListaUsuario() throws SQLException {
@@ -318,7 +318,7 @@ public class Usuario extends DAO {
     }
     
     private byte admin;
-    private Ingreso primerIngreso;
+    private Ingreso ingreso;
     private String correo;
     private String nombre;
     private String apellido1;

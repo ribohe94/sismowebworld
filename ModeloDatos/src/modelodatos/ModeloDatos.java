@@ -86,6 +86,22 @@ public class ModeloDatos {
         return ingreso.insertar(correo, pais);
     }
 
+    public ArrayList<Ingreso> getListaIngreso() throws SQLException {
+        return ingreso.getIngresos();
+    }
+    
+    public int getCantPaises() throws SQLException {
+        return ingreso.getCantPaises();
+    }
+    
+    public int getCantPaisXIngreso(String pais) throws SQLException {
+        return ingreso.getCantIngresoPais(pais);
+    }
+    
+    public ArrayList<String> getNombrePaises() throws SQLException {
+        return ingreso.getNombresPaises();
+    }
+    
     public boolean insertarNoticia(String titulo, String fecha, String contenido) throws SQLException {
         return noticias.addNoticia(new Noticia(titulo, contenido, fecha, ""));
     }
@@ -97,7 +113,7 @@ public class ModeloDatos {
     public boolean existeUsuario(String email, String password) throws SQLException {
         boolean existe = validar.existeUsuario(email, password);
         if(existe == true){
-            insertarIngreso(email, "Costa Rica");
+            insertarIngreso(email, "Italia");
         }
         return existe;
     }
