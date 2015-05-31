@@ -46,37 +46,12 @@
                         <article>
                             <div id="Mision">
                                 <h2 class="a">Misión</h2>
-                                <p class="a">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac 
-                                    lacus sapien. Quisque eu tincidunt sem. Proin quis lacus vel dui euismod 
-                                    pellentesque. Nullam tincidunt auctor tellus, non rhoncus risus. Maecenas
-                                    luctus, lacus ut laoreet tincidunt, lacus diam eleifend ante, ut rutrum nulla
-                                    enim eu erat. Sed sed nibh vitae ipsum porttitor pharetra eget eu velit. Nulla
-                                    feugiat sed diam eu dignissim. Donec ipsum quam, sodales non felis id, condimentum
-                                    placerat erat. Phasellus sit amet urna eget tortor consequat tristique.</p>
+                                <p class="a">Ejecutar y promover, permanentemente, investigaciones y estudios sismológicos destinados a atender la demanda de seguridad en la población ante la amenaza sísmica en el territorio nacional, la formación de personal especializado y divulgar los nuevos conocimientos de las ciencias. </p>
                             </div>
 
                             <div id="Vision">
                                 <h2 class="a">Visión</h2>
-                                <p class="a">Sed tincidunt euismod magna a varius. Sed maximus nec nunc ac ultricies.
-                                    Suspendisse ante arcu, placerat eu vehicula sit amet, elementum eu nisi.
-                                    Morbi quis laoreet felis. Integer massa velit, bibendum a risus at, rutrum
-                                    scelerisque sapien. Quisque risus mauris, eleifend id massa ut,
-                                    vulputate dignissim ante. Suspendisse accumsan nibh et porttitor placerat.
-                                    Nullam ultricies eleifend massa sed rutrum. In consectetur, nisi at ultrices volutpat,
-                                    nisl mauris ullamcorper sem, quis viverra diam libero quis sapien. Nulla eget arcu sit
-                                    amet diam placerat semper in quis est. Etiam vel tristique risus. Etiam volutpat auctor
-                                    lectus, eu iaculis metus posuere in. Donec posuere magna ac risus aliquam sollicitudin.
-                                    Suspendisse iaculis molestie ligula vel fringilla. Suspendisse non ultricies orci.
-                                    Nullam libero purus, mattis vitae hendrerit vitae, consectetur vitae lacus.</p>
-
-                                <p class="a">Suspendisse id quam enim. Vestibulum orci felis, tincidunt nec semper vitae, pharetra
-                                    ut mauris. Nunc in est mi. Nunc ut ex eget erat elementum tincidunt elementum at velit.
-                                    Sed rutrum non diam vitae vehicula. Nam sed varius velit. Integer at leo neque.
-                                    Nulla at volutpat ligula. Donec tristique, libero in imperdiet volutpat, urna nibh dapibus
-                                    lacus, eget interdum diam orci sed magna. Morbi ultrices, leo ut rhoncus suscipit, orci
-                                    risus placerat nisl, eget euismod sapien justo et urna. Sed ac lacus metus. Pellentesque
-                                    habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                                    Quisque nec massa quis arcu fringilla maximus.</p>
+                                <p class="a">Ser una organización de excelencia en el área de protección a la colectividad frente a la amenaza sísmica, de referencia nacional e internacional, distinguida por su capacidad de servicio, la calidad de su investigación y su desarrollo técnico y científico.</p>
                             </div>
                         </article>
                     </div>
@@ -86,10 +61,10 @@
                     <span>
                         <%
                             ModeloDatos md = ModeloDatos.obtenerInstancia();
-//                            for (int i = 0; i < md.getNoticias().getCantidad(); i++) {
-//                                out.println(md.getNoticias().getNoticiaPosicion(i).toString());
-//                            }
+//                            out.println(String.valueOf(md.getCantPaises()));
+//                            out.println(String.valueOf(md.getNombrePaises().get(0)));
                         %>
+                        <!--Script AJAX--> 
                         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
                         <script>
                             $(document).ready(function () {
@@ -125,6 +100,63 @@
                         <button id="previous">previous</button>
                         <button id="next">next</button>
                     </span>
+                </section>
+
+                <section id="Graph">
+                    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+                    <script type="text/javascript">
+                            // Load the Visualization API and the piechart package.
+                            google.load('visualization', '1.0', {'packages': ['corechart']});
+
+                            // Set a callback to run when the Google Visualization API is loaded.
+                            google.setOnLoadCallback(drawChart);
+                            // Callback that creates and populates a data table,
+                            // instantiates the pie chart, passes in the data and
+                            // draws it.
+                            function drawChart() {
+                                arrayNomPais = [];
+                                arrayCantPais = [];
+
+                                $(document).ready(function () {
+                                    $.ajaxSetup({async: false});
+                                    $.get('ServletControlB', {id: 26}, function (responseText) {
+                                        cantPais = parseInt(responseText);
+                                    });
+                                    for (var i = 0; i < cantPais; i++) {
+                                        $.get('ServletControlB', {id: 27, posPais: cantPais}, function (responseText) {
+                                            arrayNomPais.push(responseText);
+                                        });
+                                        $.get('ServletControlB', {id: 28, nombrePais: arrayNomPais[i]}, function (responseText) {
+                                            arrayCantPais.push(responseText);
+                                        });
+                                    }
+                                });
+
+                                document.getElementById("contNoticia").innerHTML += arrayNomPais[0];
+                                document.getElementById("contNoticia").innerHTML += arrayCantPais[0];
+
+                                // Create the data table.
+                                var data = new google.visualization.DataTable();
+                                data.addColumn('string', 'Pais');
+                                data.addColumn('number', 'Ingresos');
+                                data.addRows([
+                                    ["Italia", parseInt(arrayCantPais[0])]
+                                ]);
+
+                                // Set chart options
+                                var options = {'title': 'Porcentaje de ingresos por país',
+                                    'width': 400,
+                                    'height': 300};
+
+                                // Instantiate and draw our chart, passing in some options.
+                                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                                chart.draw(data, options);
+                            }
+
+                    </script>
+                    <div id="chart_div" onload="drawChart()">
+
+                    </div>
                 </section>
 
             </div>

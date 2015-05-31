@@ -26,7 +26,7 @@
                 <section id="success">
                     <h1 id="r_bienvenido">Bienvenid@</h1>
                     <p id="r_saludo">Usted se ha registrado Correctamente</br>
-                        vaya a la <a href="indexVisitantes.jsp">Pagina principal</a> de Sismo Web World </p>
+                        vaya a la <a href="index.jsp">Pagina principal</a> de Sismo Web World e inicie sesión</p>
                 </section>
                 <section id="noticias">
                     <h2>Noticias</h2>

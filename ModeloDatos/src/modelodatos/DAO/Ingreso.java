@@ -1,6 +1,8 @@
 package modelodatos.DAO;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Ingreso extends DAO {
 
@@ -41,18 +43,123 @@ public class Ingreso extends DAO {
         stmt = conn.prepareStatement("INSERT INTO Ingreso(usuario,horaIngreso,pais)"
                 + " values(?,?,?)");
         stmt.setString(1, correo);
-        
+
         java.util.Date dt = new java.util.Date();
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = sdf.format(dt);
-        
+
         stmt.setString(2, currentTime);
         stmt.setString(3, pais);
         stmt.executeUpdate();
         disconnect();
         return true;
     }
-    
+
+    public int getCantPaises() throws SQLException {
+        String usuarioQ = "", horaQ = "", paisQ = "";
+        connect();
+        ArrayList<Ingreso> listaIngresos = new ArrayList<>();
+        stmt = conn.prepareStatement("SELECT * FROM Ingreso");
+        ResultSet res = stmt.executeQuery();
+
+        while (res.next()) {
+            usuarioQ = res.getString("usuario");
+            horaQ = res.getString("horaIngreso");
+            paisQ = res.getString("pais");
+            Ingreso i = new Ingreso();
+            i.setUsuario(usuario);
+            i.setHoraIngreso(horaIngreso);
+            i.setPais(pais);
+            listaIngresos.add(i);
+        }
+        disconnect();
+        ArrayList<String> listaPaises = new ArrayList<>();
+        boolean flag = true;
+        for (int i = 0; i < listaIngresos.size(); i++) {
+            flag = true;
+            for (int j = 0; j < listaPaises.size(); j++) {
+                if (listaIngresos.get(i).getPais() == listaPaises.get(j)) {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                listaPaises.add(listaIngresos.get(i).getPais());
+            }
+        }
+        return listaPaises.size();
+    }
+
+    public ArrayList<String> getNombresPaises() throws SQLException {
+        String usuarioQ = "", horaQ = "", paisQ = "";
+        connect();
+        ArrayList<Ingreso> listaIngresos = new ArrayList<>();
+        stmt = conn.prepareStatement("SELECT * FROM Ingreso");
+        ResultSet res = stmt.executeQuery();
+
+        while (res.next()) {
+            usuarioQ = res.getString("usuario");
+            horaQ = res.getString("horaIngreso");
+            paisQ = res.getString("pais");
+            Ingreso i = new Ingreso();
+            i.setUsuario(usuarioQ);
+            i.setHoraIngreso(horaQ);
+            i.setPais(paisQ);
+            listaIngresos.add(i);
+            System.out.println(i.getUsuario());
+            System.out.println(i.getHoraIngreso());
+            System.out.println(i.getPais());
+        }
+        disconnect();
+        ArrayList<String> listaPaises = new ArrayList<>();
+        boolean flag = true;
+        for (int i = 0; i < listaIngresos.size(); i++) {
+            flag = true;
+            for (int j = 0; j < listaPaises.size(); j++) {
+                if (listaIngresos.get(i).getPais() == listaPaises.get(j)) {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                listaPaises.add(listaIngresos.get(i).getPais());
+            }
+        }
+        return listaPaises;
+    }
+
+    public int getCantIngresoPais(String pais) throws SQLException {
+        connect();
+        stmt = conn.prepareStatement("SELECT * FROM Ingreso where pais = ?");
+        stmt.setString(1, pais);
+        ResultSet res = stmt.executeQuery();
+        int cont = 0;
+        while (res.next()) {
+            cont++;
+        }
+        disconnect();
+        return cont;
+    }
+
+    public ArrayList<Ingreso> getIngresos() throws SQLException {
+        String usuarioQ = "", horaQ = "", paisQ = "";
+        connect();
+        ArrayList<Ingreso> listaIngresos = new ArrayList<>();
+        stmt = conn.prepareStatement("SELECT * FROM Ingreso");
+        ResultSet res = stmt.executeQuery();
+
+        while (res.next()) {
+            usuarioQ = res.getString("usuario");
+            horaQ = res.getString("horaIngreso");
+            paisQ = res.getString("pais");
+            Ingreso i = new Ingreso();
+            i.setUsuario(usuario);
+            i.setHoraIngreso(horaIngreso);
+            i.setPais(pais);
+            listaIngresos.add(i);
+        }
+        disconnect();
+        return listaIngresos;
+    }
+
     /*Atributos*/
     private String usuario;
     private String horaIngreso;

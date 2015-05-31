@@ -2,6 +2,7 @@ package servicios;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -117,6 +118,20 @@ public class ServletControlB extends HttpServlet {
                     text = String.valueOf(usuarioConectado.getAdmin());
                 }
 
+                if ("26".equals(val)) { //Regresa la cantidad de paises
+                    text = String.valueOf(datos.getCantPaises());
+                }
+
+                if ("27".equals(val)) { //Regresa el nombre de un pais en la posición posPais
+                    int pos = Integer.parseInt(request.getParameter("posPais"));
+                    text = datos.getNombrePaises().get(pos);
+                }
+
+                if ("28".equals(val)) { //Regresa la cantidad de veces que el sitie fue ingresado desde un país
+                    String nombrePais = request.getParameter("nombrePais");
+                    text = String.valueOf(datos.getCantPaisXIngreso(nombrePais));
+                }
+
                 if (usuarioConectado.getAdmin() == 1) {
 
                     if ("11".equals(val)) {
@@ -212,6 +227,26 @@ public class ServletControlB extends HttpServlet {
                         datos.modificarNac(u);
                         text = u.getNacimiento();
                     }
+
+                    if ("25".equals(val)) {
+                        boolean flag = true;
+                        ArrayList<String> listaPaises = new ArrayList<>();
+                        if ("0".equals(request.getParameter("chart"))) {
+                            for (int i = 0; i < datos.getListaIngreso().size(); i++) {
+                                flag = true;
+                                for (String listaPaise : listaPaises) {
+                                    if (datos.getListaIngreso().get(i).getPais() == null ? listaPaise == null : datos.getListaIngreso().get(i).getPais().equals(listaPaise)) {
+                                        flag = false;
+                                    }
+                                }
+                                if (flag) {
+                                    listaPaises.add(datos.getListaIngreso().get(i).getPais());
+                                }
+                            }
+                            text = String.valueOf(listaPaises.size());
+                        }
+                    }
+
                 }
                 response.setContentType("text/html");  // Set content type of the response so that jQuery knows what it can expect.
                 response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
