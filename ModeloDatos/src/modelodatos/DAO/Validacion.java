@@ -15,7 +15,9 @@ public class Validacion extends DAO {
 
     public boolean existeUsuario(String email, String password) throws SQLException {
         connect();
-        stmt = conn.prepareStatement("SELECT * FROM Usuario WHERE email='" + email + "' AND password='" + password + "'");
+        stmt = conn.prepareStatement("SELECT * FROM Usuario WHERE email=? AND password=?");
+        stmt.setString(1, email);
+        stmt.setString(2, password);
         ResultSet rs = stmt.executeQuery();
         rs.next();
         if ((rs.getString("email") == null ? email == null : rs.getString("email").equals(email)) && 

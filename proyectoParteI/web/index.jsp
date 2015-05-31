@@ -61,8 +61,6 @@
                     <span>
                         <%
                             ModeloDatos md = ModeloDatos.obtenerInstancia();
-//                            out.println(String.valueOf(md.getCantPaises()));
-//                            out.println(String.valueOf(md.getNombrePaises().get(0)));
                         %>
                         <!--Script AJAX--> 
                         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -101,64 +99,6 @@
                         <button id="next">next</button>
                     </span>
                 </section>
-
-                <section id="Graph">
-                    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-                    <script type="text/javascript">
-                            // Load the Visualization API and the piechart package.
-                            google.load('visualization', '1.0', {'packages': ['corechart']});
-
-                            // Set a callback to run when the Google Visualization API is loaded.
-                            google.setOnLoadCallback(drawChart);
-                            // Callback that creates and populates a data table,
-                            // instantiates the pie chart, passes in the data and
-                            // draws it.
-                            function drawChart() {
-                                arrayNomPais = [];
-                                arrayCantPais = [];
-
-                                $(document).ready(function () {
-                                    $.ajaxSetup({async: false});
-                                    $.get('ServletControlB', {id: 26}, function (responseText) {
-                                        cantPais = parseInt(responseText);
-                                    });
-                                    for (var i = 0; i < cantPais; i++) {
-                                        $.get('ServletControlB', {id: 27, posPais: cantPais}, function (responseText) {
-                                            arrayNomPais.push(responseText);
-                                        });
-                                        $.get('ServletControlB', {id: 28, nombrePais: arrayNomPais[i]}, function (responseText) {
-                                            arrayCantPais.push(responseText);
-                                        });
-                                    }
-                                });
-
-                                document.getElementById("contNoticia").innerHTML += arrayNomPais[0];
-                                document.getElementById("contNoticia").innerHTML += arrayCantPais[0];
-
-                                // Create the data table.
-                                var data = new google.visualization.DataTable();
-                                data.addColumn('string', 'Pais');
-                                data.addColumn('number', 'Ingresos');
-                                data.addRows([
-                                    ["Italia", parseInt(arrayCantPais[0])]
-                                ]);
-
-                                // Set chart options
-                                var options = {'title': 'Porcentaje de ingresos por país',
-                                    'width': 400,
-                                    'height': 300};
-
-                                // Instantiate and draw our chart, passing in some options.
-                                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-                                chart.draw(data, options);
-                            }
-
-                    </script>
-                    <div id="chart_div" onload="drawChart()">
-
-                    </div>
-                </section>
-
             </div>
             <footer></footer>
         </div>

@@ -125,6 +125,7 @@ public class ServletControlB extends HttpServlet {
                 if ("27".equals(val)) { //Regresa el nombre de un pais en la posición posPais
                     int pos = Integer.parseInt(request.getParameter("posPais"));
                     text = datos.getNombrePaises().get(pos);
+                    System.out.println(text);
                 }
 
                 if ("28".equals(val)) { //Regresa la cantidad de veces que el sitie fue ingresado desde un país

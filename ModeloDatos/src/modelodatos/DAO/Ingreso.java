@@ -66,24 +66,27 @@ public class Ingreso extends DAO {
             usuarioQ = res.getString("usuario");
             horaQ = res.getString("horaIngreso");
             paisQ = res.getString("pais");
+            if("Italia".equals(paisQ)) {
+                System.out.println(paisQ);
+            }
             Ingreso i = new Ingreso();
-            i.setUsuario(usuario);
-            i.setHoraIngreso(horaIngreso);
-            i.setPais(pais);
+            i.setUsuario(usuarioQ);
+            i.setHoraIngreso(horaQ);
+            i.setPais(paisQ);
             listaIngresos.add(i);
         }
         disconnect();
         ArrayList<String> listaPaises = new ArrayList<>();
         boolean flag = true;
-        for (int i = 0; i < listaIngresos.size(); i++) {
+        for (Ingreso listaIngreso : listaIngresos) {
             flag = true;
-            for (int j = 0; j < listaPaises.size(); j++) {
-                if (listaIngresos.get(i).getPais() == listaPaises.get(j)) {
+            for (String listaPaise : listaPaises) {
+                if (listaIngreso.getPais() == null ? listaPaise == null : listaIngreso.getPais().equals(listaPaise)) {
                     flag = false;
                 }
             }
             if (flag) {
-                listaPaises.add(listaIngresos.get(i).getPais());
+                listaPaises.add(listaIngreso.getPais());
             }
         }
         return listaPaises.size();
@@ -112,15 +115,15 @@ public class Ingreso extends DAO {
         disconnect();
         ArrayList<String> listaPaises = new ArrayList<>();
         boolean flag = true;
-        for (int i = 0; i < listaIngresos.size(); i++) {
+        for (Ingreso listaIngreso : listaIngresos) {
             flag = true;
-            for (int j = 0; j < listaPaises.size(); j++) {
-                if (listaIngresos.get(i).getPais() == listaPaises.get(j)) {
+            for (String listaPaise : listaPaises) {
+                if (listaIngreso.getPais() == null ? listaPaise == null : listaIngreso.getPais().equals(listaPaise)) {
                     flag = false;
                 }
             }
             if (flag) {
-                listaPaises.add(listaIngresos.get(i).getPais());
+                listaPaises.add(listaIngreso.getPais());
             }
         }
         return listaPaises;
