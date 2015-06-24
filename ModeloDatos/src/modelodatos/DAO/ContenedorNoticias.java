@@ -69,7 +69,7 @@ public class ContenedorNoticias extends DAO {
         connect();
         String titulo, fecha, contenido, id;
         boolean flag = false;
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost/proyecto", "root", "root");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/proyecto", "root", "root");
 
         String SQL = "SELECT * FROM Noticia";
         Statement stmtSQL = con.createStatement();

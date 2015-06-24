@@ -1,6 +1,5 @@
 package modelodatos.DAO;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -48,7 +47,8 @@ public class DAO {
     String password;
 
     static final String DEFAULT_USER = "root";
-    static final String DEFAULT_PASS = "Belsavis1994";
-    static final String DEFAULT_URL = "jdbc:mysql://localhost/proyecto";
+    static final String DEFAULT_PASS = "root";
+    static final String DEFAULT_URL = "jdbc:mysql://localhost:3307/proyecto";
 
 }
+//jdbc:mysql://localhost:3307/bd_final

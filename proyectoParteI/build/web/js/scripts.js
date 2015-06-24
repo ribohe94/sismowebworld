@@ -183,6 +183,152 @@ function verificar2() {
 
 // <editor-fold defaultstate="collapsed" desc="Validaciones Perfil">
 
+function verificarNombre() {
+    var bandera = true;
+    var Usuario = new Object();
+    Usuario.nombre = document.getElementById("inputNom").value;
+    var nombre = Usuario.nombre.split(" ");
+    /*Validaci[on de Nombre*/
+    if (nombre.length === 1) {
+        for (i = 0; i < nombre.length; i++) {
+            if (/[0-9]/.test(nombre[i])) {
+                bandera = false;
+                alert("El nombre no puede contener números");
+            }
+        }
+    } else {
+        bandera = false;
+        alert("El nombre debe contener solo 1 palabra");
+    }
+    return bandera;
+}
+
+function verificarApe1() {
+    var bandera = true;
+    var Usuario = new Object();
+    Usuario.apellido1 = document.getElementById("inputApe1").value;
+    var apellido1 = Usuario.apellido1.split(" ");
+    /*Validaci[on de Apellido 1*/
+    if (apellido1.length === 1) {
+        for (i = 0; i < apellido1.length; i++) {
+            if (/[0-9]/.test(apellido1[i])) {
+                bandera = false;
+                alert("El apellido 1 no puede contener números");
+            }
+        }
+    } else {
+        bandera = false;
+        alert("El apellido 1 debe contener solo 1 palabra");
+    }
+    return bandera;
+}
+
+function verificarApe2() {
+    var bandera = true;
+    var Usuario = new Object();
+    Usuario.apellido2 = document.getElementById("inputApe2").value;
+    var apellido2 = Usuario.apellido2.split(" ");
+    /*Validaci[on de Apellido 1*/
+    if (apellido2.length === 1) {
+        for (i = 0; i < apellido2.length; i++) {
+            if (/[0-9]/.test(apellido2[i])) {
+                bandera = false;
+                alert("El apellido 2 no puede contener números");
+            }
+        }
+    } else {
+        bandera = false;
+        alert("El apellido 2 debe contener solo 1 palabra");
+    }
+    return bandera;
+}
+
+function verificarFechaNac() {
+    var bandera = true;
+    var nacimiento = document.getElementById("inputNac").value;
+    fechaActual = new Date();
+    fechaNacimiento = new Date(Date.parse(nacimiento));
+    /*Validacion de la Fecha*/
+    if (fechaActual <= fechaNacimiento) {
+        alert("La fecha de nacimiento no puede se mayor a la fecha actual");
+        bandera = false;
+    }
+    return bandera;
+}
+
+function verificarNombreUsuario() {
+    var bandera = true;
+    var Usuario = new Object();
+    Usuario.nombre = document.getElementById("inputNomuser").value;
+    var nombre = Usuario.nombre.split(" ");
+    /*Validaci[on de Nombre*/
+    if (nombre.length === 1) {
+        for (i = 0; i < nombre.length; i++) {
+            if (/[0-9]/.test(nombre[i])) {
+                bandera = false;
+                alert("El nombre no puede contener números");
+            }
+        }
+    } else {
+        bandera = false;
+        alert("El nombre debe contener solo 1 palabra");
+    }
+    return bandera;
+}
+
+function verificarApe1Usuario() {
+    var bandera = true;
+    var Usuario = new Object();
+    Usuario.apellido1 = document.getElementById("inputApe1user").value;
+    var apellido1 = Usuario.apellido1.split(" ");
+    /*Validaci[on de Apellido 1*/
+    if (apellido1.length === 1) {
+        for (i = 0; i < apellido1.length; i++) {
+            if (/[0-9]/.test(apellido1[i])) {
+                bandera = false;
+                alert("El apellido 1 no puede contener números");
+            }
+        }
+    } else {
+        bandera = false;
+        alert("El apellido 1 debe contener solo 1 palabra");
+    }
+    return bandera;
+}
+
+function verificarApe2Usuario() {
+    var bandera = true;
+    var Usuario = new Object();
+    Usuario.apellido2 = document.getElementById("inputApe2user").value;
+    var apellido2 = Usuario.apellido2.split(" ");
+    /*Validaci[on de Apellido 1*/
+    if (apellido2.length === 1) {
+        for (i = 0; i < apellido2.length; i++) {
+            if (/[0-9]/.test(apellido2[i])) {
+                bandera = false;
+                alert("El apellido 2 no puede contener números");
+            }
+        }
+    } else {
+        bandera = false;
+        alert("El apellido 2 debe contener solo 1 palabra");
+    }
+    return bandera;
+}
+
+function verificarFechaNacUsuario() {
+    var bandera = true;
+    var nacimiento = document.getElementById("inputNacuser").value;
+    fechaActual = new Date();
+    fechaNacimiento = new Date(Date.parse(nacimiento));
+    /*Validacion de la Fecha*/
+    if (fechaActual <= fechaNacimiento) {
+        alert("La fecha de nacimiento no puede se mayor a la fecha actual");
+        bandera = false;
+    }
+    return bandera;
+}
+
 function verificarPerfil() {
     var bandera = true;
     var Usuario = new Object();
@@ -488,7 +634,6 @@ function cargarpaises() {
         var paises = 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=it&username=wilsame.6&style=full&callback=mostrarPaises';
         tagger(paises);
     }
-
 }
 
 function mostrarPaises(jsonData) {
@@ -698,11 +843,11 @@ function submit_button(pwd)
 
 // <editor-fold defaultstate="collapsed" desc="Script para slide de noticias">
 /* This script and many more are available free online at
-The JavaScript Source!! http://javascript.internet.com
-Created by: Jay M. Rumsey, OD | http://www.nova.edu/~rumsey 
-
-Modified from: http://javascript.internet.com/image-effects/simple-image-gallery.html
-*/
+ The JavaScript Source!! http://javascript.internet.com
+ Created by: Jay M. Rumsey, OD | http://www.nova.edu/~rumsey 
+ 
+ Modified from: http://javascript.internet.com/image-effects/simple-image-gallery.html
+ */
 
 var ImgPtr = 0;
 var BaseDirectory = 'http://javascript.internet.com/image-effects/';
@@ -719,9 +864,9 @@ var BaseDirectory = 'http://javascript.internet.com/image-effects/';
 
 ImgArray = [
 //  filename,     Caption 1   Caption 2
-  ['<%out.print(md.getNoticias().getNoticiaPosicion(0).getTitulo() + "<br>");%>',
-      '<%out.print(md.getNoticias().getNoticiaPosicion(0).getFecha() + "<br>");%>', 
-      '<%out.print(md.getNoticias().getNoticiaPosicion(0).getContenido() + "<br>");%>']
+    ['<%out.print(md.getNoticias().getNoticiaPosicion(0).getTitulo() + "<br>");%>',
+        '<%out.print(md.getNoticias().getNoticiaPosicion(0).getFecha() + "<br>");%>',
+        '<%out.print(md.getNoticias().getNoticiaPosicion(0).getContenido() + "<br>");%>']
 // NOTE: No comma after last entry of array
 ];
 
@@ -733,19 +878,23 @@ ImgArray = [
 //}
 
 function ShowSlide() {
-  document.getElementById('Caption1').innerHTML = ImgArray[0][0];
-  document.getElementById('mypic').innerHTML = ImgArray[0][1];
-  document.getElementById('Caption2').innerHTML = ImgArray[0][2];
+    document.getElementById('Caption1').innerHTML = ImgArray[0][0];
+    document.getElementById('mypic').innerHTML = ImgArray[0][1];
+    document.getElementById('Caption2').innerHTML = ImgArray[0][2];
 }
 
 function slideshow(dir) {
-  ImgPtr = ImgPtr + dir;
-  if (ImgPtr < 0) {ImgPtr = ImgArray.length-1;}
-  ImgPtr = ImgPtr % ImgArray.length;
-  ShowSlide(ImgPtr);
+    ImgPtr = ImgPtr + dir;
+    if (ImgPtr < 0) {
+        ImgPtr = ImgArray.length - 1;
+    }
+    ImgPtr = ImgPtr % ImgArray.length;
+    ShowSlide(ImgPtr);
 }
 // </editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Script para GoogleCharts">
 
 // </editor-fold>
+
+

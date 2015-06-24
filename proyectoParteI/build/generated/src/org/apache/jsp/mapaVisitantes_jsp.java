@@ -52,7 +52,7 @@ public final class mapaVisitantes_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("        <script src=\"http://maps.google.com/maps/api/js?sensor=false\"></script>  \n");
       out.write("        <script type=\"text/javascript\" src=\"http://api.geonames.org/export/jsr_class.js\"></script>\n");
       out.write("    </head>\n");
-      out.write("    <body onload=\"getLocation2();\">\n");
+      out.write("    <body onload=\"cargarpaises();\">\n");
       out.write("        <div id=\"wrapper\">\n");
       out.write("            <header>\n");
       out.write("                <section id=\"encabezado\">\n");
@@ -100,23 +100,27 @@ public final class mapaVisitantes_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("            <div id=\"contents\">\n");
       out.write("\n");
       out.write("                <section id=\"navegacion\">\n");
-      out.write("                    <article>\n");
-      out.write("                        <li><a href=\"indexVisitantes.jsp\"><p>INICIO</p></a></li>\n");
+      out.write("                    <article class=\"menu_iz\">\n");
+      out.write("                        <li><a href=\"index.jsp\"><p>INICIO</p></a></li>\n");
       out.write("                    </article>\n");
-      out.write("                    <article>\n");
+      out.write("                    <article class=\"menu_iz\">\n");
+      out.write("                        <li><a href=\"registro.jsp\"><p>REGISTRO</p></a></li>\n");
+      out.write("                    </article>\n");
+      out.write("                    <article class=\"menu_iz\">\n");
+      out.write("                        <li><a href=\"login.jsp\"><p>INGRESO</p></a></li>\n");
+      out.write("                    </article>\n");
+      out.write("                    <article class=\"menu_iz\">\n");
       out.write("                        <li><a href=\"mapaVisitantes.jsp\"><p>MAPA</p></a></li>\n");
-      out.write("                    </article>\n");
-      out.write("                    <article>\n");
-      out.write("                        <li><a href=\"index.jsp\"><p>SALIR</p></a></li>\n");
       out.write("                    </article>\n");
       out.write("                </section>\n");
       out.write("\n");
       out.write("                <section id=\"mapa\">\n");
       out.write("                    <div id=\"contents_mapa\">\n");
       out.write("                        <section id=\"SBuscar\">\n");
-      out.write("                            <h3>Especifique una fecha</h3>\n");
+      out.write("                            <h3>Especifique una fecha y elija un Pais a consultar</h3>\n");
       out.write("                            <input id=\"fromDate\" type=\"date\" value=\"2015-05-21\" >\n");
-      out.write("                            <input type=\"button\" onclick=\"getLocation2()\" value=\"enviar\">\n");
+      out.write("                            <select id=\"SPais\"></select>\n");
+      out.write("                            <input type=\"button\" onclick=\"Consulta();\" value=\"enviar\">\n");
       out.write("                        </section>\n");
       out.write("\n");
       out.write("                        <section id=\"SMapa\"></section>\n");
@@ -167,7 +171,7 @@ public final class mapaVisitantes_jsp extends org.apache.jasper.runtime.HttpJspB
       out.write("            <footer></footer>\n");
       out.write("        </div>\n");
       out.write("    </body>\n");
-      out.write("</html>\n");
+      out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

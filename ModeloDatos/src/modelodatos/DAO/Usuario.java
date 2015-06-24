@@ -161,20 +161,20 @@ public class Usuario extends DAO {
             System.out.println("Estado ADMIN:   " + isAdmin);
         }
         //Selecciono Ingreso
-        stmt = conn.prepareStatement("SELECT usuario FROM Ingreso where usuario = ?");
-        stmt.setString(1, email);
-        res = stmt.executeQuery();
-        while(res.next()) {
-            usuarioIngreso = res.getString("usuario");
-            horaIngreso = res.getString("horaIngreso");
-            pais = res.getString("pais");
-        }
-        Ingreso i = new Ingreso();
-        i.setUsuario(correoaux);
-        i.setHoraIngreso(horaIngreso);
-        i.setPais(pais);
+//        stmt = conn.prepareStatement("SELECT usuario FROM Ingreso where usuario = ?");
+//        stmt.setString(1, email);
+//        res = stmt.executeQuery();
+//        while(res.next()) {
+//            usuarioIngreso = res.getString("usuario");
+//            horaIngreso = res.getString("horaIngreso");
+//            pais = res.getString("pais");
+//        }
+//        Ingreso i = new Ingreso();
+//        i.setUsuario(correoaux);
+//        i.setHoraIngreso(horaIngreso);
+//        i.setPais(pais);
         disconnect();
-        return new Usuario(isAdmin, i, correoaux, nombreaux, apellido1aux, apellido2aux, pass, rutaFotoaux, nacimientoaux);
+        return new Usuario(isAdmin, new Ingreso(), correoaux, nombreaux, apellido1aux, apellido2aux, pass, rutaFotoaux, nacimientoaux);
     }
 
     public ArrayList<Usuario> getListaUsuario() throws SQLException {
@@ -203,19 +203,6 @@ public class Usuario extends DAO {
             System.out.println("Estado ADMIN:   " + isAdmin);
             lista.add(new Usuario(isAdmin, new Ingreso(), correoaux, nombreaux, apellido1aux, apellido2aux, pass, rutaFotoaux, nacimientoaux));
         }
-        //Selecciono Ingreso
-//        stmt = conn.prepareStatement("SELECT usuario FROM Ingreso where usuario = ?");
-//        stmt.setString(1, usuario);
-//        res = stmt.executeQuery();
-//        while(res.next()) {
-//            usuarioIngreso = res.getString("usuario");
-//            horaIngreso = res.getString("horaIngreso");
-//            pais = res.getString("pais");
-//        }
-//        Ingreso i = new Ingreso();
-//        i.setUsuario(usuarioIngreso);
-//        i.setHoraIngreso(horaIngreso);
-//        i.setPais(pais);
         disconnect();
         for (int i = 0; i < lista.size(); i++) {
             System.out.println(lista.get(i).getNombre());

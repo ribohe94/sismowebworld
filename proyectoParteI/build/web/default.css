@@ -62,6 +62,10 @@ header{
     background-color: #38a1b3;
 }
 
+#chart_div {
+    
+}
+
 #info{
     margin: 80px 15px 20px 80px;
     overflow: scroll;
@@ -131,6 +135,12 @@ header{
 .a{
     width: 60%;
     margin-left: 95px;
+}
+
+#navegacion {
+    position: relative;
+    border-collapse: collapse;
+    min-height: 100%;
 }
 
 .menu_iz {

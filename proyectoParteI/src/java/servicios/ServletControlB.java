@@ -63,6 +63,7 @@ public class ServletControlB extends HttpServlet {
         Usuario u = new Usuario();
         if (request.getParameter("id") != null) {
             String val = request.getParameter("id");
+            System.out.println("VALOR ----- > " + val);
             try {
                 if ("0".equals(val)) {
                     text = usuarioConectado.getNombre();
