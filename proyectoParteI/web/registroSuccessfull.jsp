@@ -3,7 +3,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <title>Inicio</title>
+        <script type="text/javascript" src="js/AJAX.js"></script>
         <link rel="stylesheet" type="text/css" href="default.css" />
         <script type="text/javascript" src="js/scripts.js"></script>
 
@@ -28,47 +30,28 @@
                     <p id="r_saludo">Usted se ha registrado Correctamente</br>
                         vaya a la <a href="index.jsp">Pagina principal</a> de Sismo Web World e inicie sesión</p>
                 </section>
-                <section id="noticias">
-                    <h2>Noticias</h2>
-                    <span>
-                        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-                        <script>
-                            $(document).ready(function () {
-                                var x = 0;
-                                // When the HTML DOM is ready loading, then execute the following function...
-                                $('#next').click(function () {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
-                                    $.get('ServletControlC', {id: 0, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                        $('#tituloNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                        $.get('ServletControlC', {id: 1, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                            $('#fechaNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                            $.get('ServletControlC', {id: 2, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                                $('#contNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                            });
-                                        });
-                                    });
-                                });
-                                $('#previous').click(function () {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
-                                    $.get('ServletControlC', {id: 0, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                        $('#tituloNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                        $.get('ServletControlC', {id: 1, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                            $('#fechaNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                            $.get('ServletControlC', {id: 2, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                                $('#contNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                            });
-                                        });
-                                    });
-                                });
-                            });
-                        </script>
-                        <div id="tituloNoticia"></div>
-                        <div id="fechaNoticia"></div>
-                        <div id="contNoticia"></div>
-                        <button id="previous">previous</button>
-                        <button id="next">next</button>
-                    </span>
-                </section>
+                <div id="noticias">
+                    <table>
+                        <tr>
+                            <td><button id="previous" class="btn"><</button></td>
+                            <td style="width: 100%; text-align: center"><h2>Noticias</h2></td>
+                            <td><button id="next" class="btn">></button></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td><div id="tituloNoticia"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="fechaNoticia"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="contNoticia"></div></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <footer></footer>
+            <footer style="text-align: center;">Creado por Riccardo Bove y Wilberth Sánchez</footer>
         </div>
     </body>
 </html>

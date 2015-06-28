@@ -15,18 +15,23 @@ public class Validacion extends DAO {
 
     public boolean existeUsuario(String email, String password) throws SQLException {
         connect();
-        stmt = conn.prepareStatement("SELECT * FROM Usuario WHERE email=? AND password=?");
+        stmt = conn.prepareStatement("SELECT * FROM Usuario WHERE email = ? AND password = ?");
         stmt.setString(1, email);
         stmt.setString(2, password);
         ResultSet rs = stmt.executeQuery();
-        rs.next();
-        if ((rs.getString("email") == null ? email == null : rs.getString("email").equals(email)) && 
-                (rs.getString("password") == null ? password == null : rs.getString("password").equals(password))) {
-            disconnect();
-            return true;
-        } else {
-            disconnect();
-            return false;
+
+//        System.out.println(rs.getString("email"));
+//        System.out.println(rs.getString("password"));
+        if (rs.next()) {
+            if ((rs.getString("email").equals(email))
+                    && (rs.getString("password").equals(password))) {
+                disconnect();
+                return true;
+            } else {
+                disconnect();
+                return false;
+            }
         }
+        return false;
     }
 }

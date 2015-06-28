@@ -112,9 +112,6 @@ public class ModeloDatos {
 
     public boolean existeUsuario(String email, String password) throws SQLException {
         boolean existe = validar.existeUsuario(email, password);
-        if(existe == true){
-            insertarIngreso(email, "Costa Rica");
-        }
         return existe;
     }
 

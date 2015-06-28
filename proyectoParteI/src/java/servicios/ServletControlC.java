@@ -7,6 +7,10 @@ package servicios;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -79,7 +83,11 @@ public class ServletControlC extends HttpServlet {
             if (val == 3) {
                 String titulo = request.getParameter("valort");
                 String fecha = request.getParameter("valorf");
+                String hora = request.getParameter("valortime");
                 String contenido = request.getParameter("valorc");
+
+                fecha = fecha + " " + hora + ":00";
+
                 datos.insertarNoticia(titulo, fecha, contenido);
                 System.out.println("NOTICIAS AGREGADA");
             }

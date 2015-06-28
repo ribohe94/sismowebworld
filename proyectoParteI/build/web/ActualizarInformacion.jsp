@@ -3,7 +3,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <title>Inicio</title>
+        <script type="text/javascript" src="js/AJAX.js"></script>    
         <link rel="stylesheet" type="text/css" href="default.css" />
     </head>
     <body>
@@ -18,75 +20,42 @@
                     </h1>
                 </section>
             </header>
-            <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $.ajaxSetup({async: false});
-                    var x = 0;
-                    // When the HTML DOM is ready loading, then execute the following function...
-                    $('#next').click(function () {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
-                        $.get('ServletControlC', {id: 0, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                            $('#tituloNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                            $.get('ServletControlC', {id: 1, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                $('#fechaNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                $.get('ServletControlC', {id: 2, id2: 1}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                    $('#contNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                });
-                            });
-                        });
-                    });
-                    $('#previous').click(function () {               // Locate HTML DOM element with ID "somebutton" and assign the following function to its "click" event...
-                        $.get('ServletControlC', {id: 0, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                            $('#tituloNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                            $.get('ServletControlC', {id: 1, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                $('#fechaNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                $.get('ServletControlC', {id: 2, id2: 0}, function (responseText) { // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response text...
-                                    $('#contNoticia').text(responseText);         // Locate HTML DOM element with ID "somediv" and set its text content with the response text.
-                                });
-                            });
-                        });
-                    });
-
-                    $('#enviarNoticia').click(function () {
-                        $.get('ServletControlC', {id: 3, valort: document.getElementById("inputTitulo").value, valorf: document.getElementById("inputFecha").value, valorc: document.getElementById("inputCont").value}, function (responseText) {
-                            document.getElementById("inputTitulo").setAttribute("value", "");
-                            document.getElementById("inputFecha").setAttribute("value", "");
-                            document.getElementById("inputCont").setAttribute("value", "");
-                            $('#resultado').text("Noticia Agregada");
-                        });
-                    });
-
-                });
-            </script>
             <div id="contents">
+                <div id="datosSesion" onload="cargarDatosSesion()"></div>
+                <input id="user" type="hidden" value="${sessionScope.usuario}">
+                <script>
+                    if (document.getElementById("user").value !== "") {
+                        document.getElementById("datosSesion").innerHTML = document.getElementById("user").value + " | <a href=\"ServletCerrarSesion\">Cerrar sesion</a>";
+                    }
+                </script>
 
                 <section id="navegacion">
-                    <article>
-                        <li><a href="indexVisitantes.jsp"><p>INICIO</p></a></li>
-                    </article>
-                    <article>
-                        <li><a href="Perfil.jsp"><p>Perfil</p></a></li>
-                    </article>
-                    <article>
-                        <li><a href="mapaVisitantes.jsp"><p>MAPA</p></a></li>
-                    </article>
-                    <article>
-                        <li><a href="index.jsp"><p>SALIR</p></a></li>
-                    </article>
+                    <div class="links_nav"><a href="index.jsp"><p>Inicio</p></a></div>
+                    <div class="links_nav"><a href="Perfil.jsp"><p>Perfil</p></a></div>
+                    <div><a href="mapa.jsp"><p>Mapa</p></a></div>
                 </section>
+                <div id="noticias">
+                    <table>
+                        <tr>
+                            <td><button id="previous" class="btn"><</button></td>
+                            <td style="width: 100%; text-align: center"><h2>Noticias</h2></td>
+                            <td><button id="next" class="btn">></button></td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td><div id="tituloNoticia"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="fechaNoticia"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="contNoticia"></div></td>
+                        </tr>
+                    </table>
+                </div>
 
                 <div>
-                    <section id="noticias">
-                        <h2>Noticias</h2>
-                        <span>
-
-                            <div id="tituloNoticia"></div>
-                            <div id="fechaNoticia"></div>
-                            <div id="contNoticia"></div>
-                            <button id="previous">previous</button>
-                            <button id="next">next</button>
-                        </span>
-                    </section>
                     <table id="tabla_noticias">
                         <tr>
                             <td>Ingrese la información de la nueva noticia</td>
@@ -95,7 +64,7 @@
                             <td>Titulo: </td><td><input id="inputTitulo" type="text"/></td>
                         </tr>
                         <tr>
-                            <td>Fecha: </td><td><input id="inputFecha" type="date"/></td>
+                            <td>Fecha: </td><td><input id="inputFecha" type="date"/> Hora: <input id="inputHora" type="time"></td>
                         </tr>
                         <tr>
                             <td>Contenido: </td><td><textarea rows="8" cols="70" id="inputCont"></textarea></td>
@@ -106,9 +75,8 @@
                     </table>
 
                 </div>
-
             </div>
-            <footer></footer>
+            <footer style="text-align: center;">Creado por Riccardo Bove y Wilberth Sánchez</footer>
         </div>
     </body>
 </html>

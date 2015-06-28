@@ -9,27 +9,34 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelodatos.DAO.Usuario;
 import modelodatos.ModeloDatos;
 
 public class ServletControlB extends HttpServlet {
 
     ModeloDatos datos = ModeloDatos.obtenerInstancia();
-    Usuario usuarioConectado = new Usuario();
+    HttpSession sesion = null;
+    Usuario usuarioConectado = null;
 
+    public HttpSession getSesion() {
+        return sesion;
+    }
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         boolean band = true;
         String mail = request.getParameter("emailLogin");
         String pass = request.getParameter("passwordLogin");
+        
 
         try {
             if (datos.existeUsuario(mail, pass)) {
-                datos.setUsuario(datos.getUsuario(mail));
-                usuarioConectado = datos.getUsuario(mail);
-                System.out.println("Successfull Login ---------------------------------->" + datos.getUsuario(mail).toString());
-
+                sesion = request.getSession(true);
+                sesion.setAttribute("usuario", mail);
+                sesion.setAttribute("admin", datos.getUsuario(mail).getAdmin());
+                usuarioConectado = datos.getUsuario((String)sesion.getAttribute("usuario"));
+                datos.insertarIngreso(mail, request.getParameter("pais_ingreso"));
             } else {
                 datos.setUsuario(null);
                 System.out.println("Errores al procesar Login");
@@ -37,10 +44,11 @@ public class ServletControlB extends HttpServlet {
             }
         } catch (SQLException ex) {
             Logger.getLogger(ServletControlB.class.getName()).log(Level.SEVERE, null, ex);
+            band = false;
         }
 
         if (band == true) {
-            response.sendRedirect("indexVisitantes.jsp");
+            response.sendRedirect("index.jsp");
         } else {
             response.sendRedirect("loginFail.jsp");
         }

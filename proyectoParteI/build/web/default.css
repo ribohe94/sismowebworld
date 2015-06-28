@@ -1,10 +1,21 @@
 /*TYPES*/
+a {
+    color: #072A2A;
+    text-decoration: none;
+    text-align: center;
+}
+
+a:hover {
+    color: #375A5A;
+    text-decoration: none;
+}
+
 html {
     min-height: 100%;
 }
 
 body{
-    font-family: sans-serif;
+    font-family: "Trebuchet MS";
     font-size: medium;
     background-color: #009999;
     min-height: 100%;
@@ -17,18 +28,36 @@ header{
 
 /*IDs*/
 
+#btn_noticias {
+
+    width: 150px;
+    position: absolute; 
+    bottom: 0; 
+}
+
+#chart_div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
 #wrapper{
     min-height: 100%;
 }
 
 #contents{
-    position: relative;
     min-height: 100%;
 }
 
 #encabezado{
     width: 20%;
     margin-left: 35%;
+}
+
+#datosSesion {
+    position: absolute;
+    right: 0px;
+    margin-right: 10px;
 }
 
 #img_logo{
@@ -44,13 +73,17 @@ header{
 
 #navegacion{
     margin: 25px 20px 20px 20px;
-    border: #000000 solid 1px;
-    width: 10%;
-    height: 350px;
-    padding-left: 40px;
+    border: #333333 solid 1px;
+    width: border-box;
+    min-height: 100%;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-bottom: 20px;
+    padding-top: 10px;
     float: left;
-    background-color: #38a1b3;
+    background-color: #9fd8d8;
     box-shadow: inset 0px 0px 15px 0px #1e535c ;
+    border-radius: 5px;
 }
 
 #c_info{
@@ -63,12 +96,11 @@ header{
 }
 
 #chart_div {
-    
+
 }
 
 #info{
     margin: 80px 15px 20px 80px;
-    overflow: scroll;
     overflow-x: hidden;
     width: 40%;
     height: 325px;
@@ -119,6 +151,28 @@ header{
     background-color: #375A5A;
 }
 
+#tabla_noticias {
+    margin-top: 40px;
+}
+
+#tituloNoticia {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: #216a6a 1px dotted;
+}
+
+#fechaNoticia {
+    font-style: italic;
+    color: #4f4f4f;
+    border-bottom: #216a6a 1px dotted;
+    
+}
+
+#contNoticia {
+    text-align: justify;
+}
+
 #mapa{
     margin: 25px 20px 20px 15px;
     width: 550px;
@@ -137,17 +191,26 @@ header{
     margin-left: 95px;
 }
 
-#navegacion {
-    position: relative;
-    border-collapse: collapse;
-    min-height: 100%;
+.btn {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0px;
+    border: none;
+    color: #ffffff;
+    background: #2a90b5;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
 }
 
-.menu_iz {
-    position: relative;
-    border-collapse: collapse;
+.btn:hover {
+    background: #0099c7;
+    text-decoration: none;
 }
 
+.links_nav {
+    border-bottom: #216a6a 1px solid;
+    width: available;
+}
 
 /* CSS - Cascading Style Sheet */
 /* Palette color codes */

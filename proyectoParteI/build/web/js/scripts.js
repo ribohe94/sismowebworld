@@ -603,6 +603,10 @@ function sismos(jsonData) {
 
 }
 
+function obtenerFecha() {
+
+}
+
 function crearMapa() {
     mapholder = document.getElementById('SMapa')
     mapholder.style.height = '500px';
@@ -627,11 +631,11 @@ function agregarMarca(lat, lon, mag, prof) {
 function cargarpaises() {
     if (b === true) {
         getLocation2();
-        var paises = 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=it&username=wilsame.6&style=full&callback=mostrarPaises';
+        var paises = 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=wilsame.6&style=full&callback=mostrarPaises';
         tagger(paises);
     } else {
         b = false;
-        var paises = 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=it&username=wilsame.6&style=full&callback=mostrarPaises';
+        var paises = 'http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&username=wilsame.6&style=full&callback=mostrarPaises';
         tagger(paises);
     }
 }
@@ -897,4 +901,12 @@ function slideshow(dir) {
 
 // </editor-fold>
 
+// <editor-fold defaultstate="collapsed" desc="Metodos HTTP">
 
+function cargarDatosSesion() {
+    if (document.getElementById("user").value !== "") {
+        document.getElementById("datosSesion").innerHTML = document.getElementById("user").value + " | <a>Cerrar sesion</a>";
+    }
+}
+
+// </editor-fold>
